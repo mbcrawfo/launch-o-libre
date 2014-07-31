@@ -5,6 +5,9 @@
     <ClCompile Include="math\Vector2.cpp">
       <Filter>math</Filter>
     </ClCompile>
+    <ClCompile Include="math\AABB.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">
@@ -16,6 +19,9 @@
       <Filter>math</Filter>
     </ClInclude>
     <ClInclude Include="math\fp_compare.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\AABB.h">
       <Filter>math</Filter>
     </ClInclude>
   </ItemGroup>

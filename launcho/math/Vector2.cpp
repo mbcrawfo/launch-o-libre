@@ -1,6 +1,5 @@
 #include "math/Vector2.h"
 
-#include <cmath>
 #include <cassert>
 #include "math/fp_compare.h"
 
