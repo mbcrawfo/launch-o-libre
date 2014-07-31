@@ -48,10 +48,14 @@ public:
    */
   void normalize();
 
-  // equality operator
+  // comparisons
   bool operator==(const Vector2& rhs) const;
-  // inequality operator
   bool operator!=(const Vector2& rhs) const;
+  bool operator<(const Vector2& rhs) const;
+  bool operator<=(const Vector2& rhs) const;
+  bool operator>(const Vector2& rhs) const;
+  bool operator>=(const Vector2& rhs) const;
+
   // add two vectors
   Vector2 operator+(const Vector2& rhs) const;
   // subtract two vectors

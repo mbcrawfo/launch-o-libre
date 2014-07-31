@@ -1,5 +1,6 @@
 #include "math/Vector2.h"
 
+#include <cmath>
 #include <cassert>
 #include "math/fp_compare.h"
 
@@ -66,6 +67,26 @@ bool Vector2::operator==(const Vector2& rhs) const
 bool Vector2::operator!=(const Vector2& rhs) const
 {
   return !(*this == rhs);
+}
+
+bool Vector2::operator<(const Vector2& rhs) const
+{
+  return (x < rhs.x) && (y < rhs.y);
+}
+
+bool Vector2::operator<=(const Vector2& rhs) const
+{
+  return (x <= rhs.x) && (y <= rhs.y);
+}
+
+bool Vector2::operator>(const Vector2& rhs) const
+{
+  return !(*this <= rhs);
+}
+
+bool Vector2::operator>=(const Vector2& rhs) const
+{
+  return !(*this < rhs);
 }
 
 Vector2 Vector2::operator+(const Vector2& rhs) const

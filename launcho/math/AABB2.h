@@ -15,6 +15,8 @@ public:
 
   // constructors
   AABB2();
+  AABB2(const float x, const float y, const float _width, const float _height);
+  AABB2(const Vector2& _center, const float _width, const float _height);
   AABB2(const Vector2& _center, const Vector2& _halfSize);
   AABB2(const Vector2& _center, float sideLength);
   AABB2(const AABB2& copy);
@@ -28,11 +30,21 @@ public:
   /**
    * Checks if these boxes have an intersection.
    */
-  bool intersect(const AABB2& aabb) const;
+  bool intersect(const AABB2& other) const;
 
   // box information
   float width() const;
   float height() const;
   float area() const;
   float perimeter() const;
+
+  /**
+   * Returns the lower left corner of the box.
+   */
+  Vector2 min() const;
+
+  /** 
+   * Returns the upper right corner of the box.
+   */
+  Vector2 max() const;
 };
