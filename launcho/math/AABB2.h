@@ -5,7 +5,7 @@
 /**
  * Axis aligned bounding box
  */
-class AABB
+class AABB2
 {
 public:
   // center of the box (pretend vector is a point)
@@ -14,11 +14,11 @@ public:
   Vector2 halfSize;
 
   // constructors
-  AABB();
-  AABB(const Vector2& _center, const Vector2& _halfSize);
-  AABB(const Vector2& _center, float sideLength);
-  AABB(const AABB& copy);
-  AABB& operator=(const AABB& rhs);
+  AABB2();
+  AABB2(const Vector2& _center, const Vector2& _halfSize);
+  AABB2(const Vector2& _center, float sideLength);
+  AABB2(const AABB2& copy);
+  AABB2& operator=(const AABB2& rhs);
 
   /**
    * Using vector as a point, checks if the point is in this box.
@@ -28,7 +28,7 @@ public:
   /**
    * Checks if these boxes have an intersection.
    */
-  bool intersect(const AABB& aabb) const;
+  bool intersect(const AABB2& aabb) const;
 
   // box information
   float width() const;

@@ -95,11 +95,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="math\AABB.cpp" />
+    <ClCompile Include="math\AABB2.cpp" />
     <ClCompile Include="math\Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="math\AABB.h" />
+    <ClInclude Include="math\AABB2.h" />
     <ClInclude Include="math\fp_compare.h" />
     <ClInclude Include="math\Vector2.h" />
   </ItemGroup>

@@ -1,38 +1,38 @@
-#include "math/AABB.h"
+#include "math/AABB2.h"
 
 #include <cmath>
 
-AABB::AABB()
-  : AABB(Vector2::ZERO, Vector2::ZERO)
+AABB2::AABB2()
+  : AABB2(Vector2::ZERO, Vector2::ZERO)
 {}
 
-AABB::AABB(const Vector2& _center, const Vector2& _halfSize)
+AABB2::AABB2(const Vector2& _center, const Vector2& _halfSize)
   : center(_center), halfSize(_halfSize)
 {}
 
-AABB::AABB(const Vector2& _center, float sideLength)
-  : AABB(_center, Vector2(sideLength / 2.0f, sideLength / 2.0f))
+AABB2::AABB2(const Vector2& _center, float sideLength)
+  : AABB2(_center, Vector2(sideLength / 2.0f, sideLength / 2.0f))
 {}
 
-AABB::AABB(const AABB& copy)
-  : AABB(copy.center, copy.halfSize)
+AABB2::AABB2(const AABB2& copy)
+  : AABB2(copy.center, copy.halfSize)
 {}
 
-AABB& AABB::operator=(const AABB& rhs)
+AABB2& AABB2::operator=(const AABB2& rhs)
 {
   center = rhs.center;
   halfSize = rhs.halfSize;
   return *this;
 }
 
-bool AABB::contains(const Vector2& pt) const
+bool AABB2::contains(const Vector2& pt) const
 {
   Vector2 distance(center - pt);
   return (std::fabs(distance.x) <= halfSize.x) && 
          (std::fabs(distance.y) <= halfSize.y);
 }
 
-bool AABB::intersect(const AABB& aabb) const
+bool AABB2::intersect(const AABB2& aabb) const
 {
   Vector2 distance(aabb.center - center);
   Vector2 size(aabb.halfSize + halfSize);
@@ -41,22 +41,22 @@ bool AABB::intersect(const AABB& aabb) const
   return (size.x > 0.0f) && (size.y > 0.0f);
 }
 
-float AABB::width() const
+float AABB2::width() const
 {
   return halfSize.x * 2.0f;
 }
 
-float AABB::height() const
+float AABB2::height() const
 {
   return halfSize.y * 2.0f;
 }
 
-float AABB::area() const
+float AABB2::area() const
 {
   return width() * height();
 }
 
-float AABB::perimeter() const
+float AABB2::perimeter() const
 {
   return (width() + height()) * 2.0f;
 }
