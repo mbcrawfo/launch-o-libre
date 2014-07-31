@@ -41,12 +41,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SDL_PATH)\include;$(BOOST_PATH);$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(SDL_PATH)\include;$(BOOST_PATH);$(IncludePath)</IncludePath>
     <LibraryPath>$(BOOST_PATH)\lib;$(SDL_PATH)\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SDL_PATH)\include;$(BOOST_PATH);$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(SDL_PATH)\include;$(BOOST_PATH);$(IncludePath)</IncludePath>
     <LibraryPath>$(BOOST_PATH)\lib;$(SDL_PATH)\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -95,6 +95,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="math\Vector2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="math\fp_compare.h" />
+    <ClInclude Include="math\Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
