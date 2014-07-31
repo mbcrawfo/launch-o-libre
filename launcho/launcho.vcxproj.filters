@@ -8,10 +8,16 @@
     <ClCompile Include="math\AABB2.cpp">
       <Filter>math</Filter>
     </ClCompile>
+    <ClCompile Include="utility\Timer.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">
       <UniqueIdentifier>{78eff457-04ef-4412-a085-fb2ddf29c0ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility">
+      <UniqueIdentifier>{a67a1c15-1b46-49df-b33f-b842d5f91d25}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -23,6 +29,9 @@
     </ClInclude>
     <ClInclude Include="math\AABB2.h">
       <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\Timer.h">
+      <Filter>utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

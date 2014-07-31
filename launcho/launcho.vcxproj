@@ -97,11 +97,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math\AABB2.cpp" />
     <ClCompile Include="math\Vector2.cpp" />
+    <ClCompile Include="utility\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\AABB2.h" />
     <ClInclude Include="math\fp_compare.h" />
     <ClInclude Include="math\Vector2.h" />
+    <ClInclude Include="utility\Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
