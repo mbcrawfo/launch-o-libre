@@ -100,6 +100,10 @@
     <ClCompile Include="utility\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="IEventSystem.h" />
+    <ClInclude Include="ILogicSystem.h" />
+    <ClInclude Include="IPhysicsSystem.h" />
+    <ClInclude Include="IRenderSystem.h" />
     <ClInclude Include="math\AABB2.h" />
     <ClInclude Include="math\fp_compare.h" />
     <ClInclude Include="math\Vector2.h" />
