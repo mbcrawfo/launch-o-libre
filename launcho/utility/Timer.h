@@ -44,10 +44,16 @@ public:
   uint64_t elapsedMicro();
 
   /**
-   * Same behavior elapsedMicro(), but returns the time in milliseconds. 
+   * Same behavior as elapsedMicro(), but returns the time in milliseconds. 
    * Overflow after ~49 days.
    */
   uint32_t elapsedMilli();
+
+  /**
+   * Same behavior as elapsedMicro(), but returns the time in floating point 
+   * milliseconds.
+   */
+  float elapsedMilliF();
 
   /**
    * Same behavior as elapsedMicro(), but returns the time in seconds.

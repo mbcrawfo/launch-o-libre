@@ -23,3 +23,15 @@ public:
 
   // TODO: rendering specific methods...
 };
+
+/**
+ * Empty render system that does nothing.
+ */
+class NullRenderSystem 
+  : public IRenderSystem
+{
+public:
+  virtual void initialize() override {}
+  virtual void update(const float deltaMs) override { (void) deltaMs; }
+  virtual void destroy() override {}
+};

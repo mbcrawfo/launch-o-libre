@@ -11,6 +11,7 @@
     <ClCompile Include="utility\Timer.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">
@@ -37,5 +38,6 @@
     <ClInclude Include="ILogicSystem.h" />
     <ClInclude Include="IPhysicsSystem.h" />
     <ClInclude Include="IRenderSystem.h" />
+    <ClInclude Include="Game.h" />
   </ItemGroup>
 </Project>

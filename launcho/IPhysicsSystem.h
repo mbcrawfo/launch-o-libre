@@ -23,3 +23,16 @@ public:
 
   // TODO: physics specific methods
 };
+
+/**
+ * Physics system that does nothing.
+ */
+class NullPhysicsSystem
+  : public IPhysicsSystem
+{
+public:
+  virtual void initialize() override {}
+  virtual void update(const float deltaMs) override { (void) deltaMs; }
+  virtual void destroy() override {}
+
+};

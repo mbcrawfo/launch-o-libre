@@ -25,6 +25,7 @@ Timer& Timer::operator=(const Timer& rhs)
 
 void Timer::start()
 {
+  reset();
   QueryPerformanceCounter(&startTime);
   running = true;
 }
@@ -62,7 +63,12 @@ uint64_t Timer::elapsedMicro()
 
 uint32_t Timer::elapsedMilli()
 {
-  return (int32_t)(elapsedMicro() / 1000);
+  return (uint32_t)(elapsedMicro() / 1000);
+}
+
+float Timer::elapsedMilliF()
+{
+  return elapsedMicro() / 1000.0f;
 }
 
 float Timer::elapsedSec()

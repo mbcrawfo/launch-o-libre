@@ -25,3 +25,15 @@ public:
 
   // TODO: event specific methods...
 };
+
+/**
+ * Event system that does nothing.
+ */
+class NullEventSystem
+  : public IEventSystem
+{
+public:
+  virtual void initialize() override {}
+  virtual void update(const float maxMs) override { (void) maxMs; }
+  virtual void destroy() override {}
+};
