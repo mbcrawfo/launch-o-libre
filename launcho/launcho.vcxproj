@@ -63,7 +63,7 @@
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(SDL_PATH)\lib\x86\SDL2.dll $(TargetDir)</Command>
+      <Command>copy "$(SDL_PATH)\lib\x86\SDL2.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copying SDL2.dll</Message>
@@ -87,7 +87,7 @@
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(SDL_PATH)\lib\x86\SDL2.dll $(TargetDir)</Command>
+      <Command>copy "$(SDL_PATH)\lib\x86\SDL2.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copying SDL2.dll</Message>
