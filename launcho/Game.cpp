@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "utility/Timer.h"
+#include <SDL.h>
 #include <thread>
 #include <iostream>
 
@@ -34,7 +35,7 @@ void Game::run()
 
 void Game::initialize()
 {
-  // TODO: process command line args
+  SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO);
 
   logic = new NullLogicSystem;
   render = new NullRenderSystem;
@@ -81,5 +82,7 @@ void Game::shutdown()
   physics->destroy();
   render->destroy();
   logic->destroy();
+
+  SDL_Quit();
 }
 

@@ -1,0 +1,12 @@
+Init Order
+1. SDL init in main
+2. Render system
+3, 4, 5: ???
+
+Render System:
+  * Init:
+    1. create window
+    2. create surface
+  * Shutdown:
+    1. Destroy surface
+    2. destroy window

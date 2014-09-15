@@ -12,6 +12,7 @@
       <Filter>utility</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameOptions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">
@@ -39,5 +40,10 @@
     <ClInclude Include="IPhysicsSystem.h" />
     <ClInclude Include="IRenderSystem.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="GameOptions.h" />
+    <ClInclude Include="utility\conversions.h">
+      <Filter>utility</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
