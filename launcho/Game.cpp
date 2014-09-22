@@ -7,14 +7,9 @@
 // try to sustain 30 fps
 float Game::MAX_FRAME_TIME = 1000.0f / 30.0f;
 
-Game::Game(int argc, char* argv[])
-  : args(argc), logic(nullptr), render(nullptr), physics(nullptr), 
-    eventManager(nullptr)
+Game::Game()
+  : logic(nullptr), render(nullptr), physics(nullptr), eventManager(nullptr)
 {
-  for (int i = 0; i < argc; i++)
-  {
-    args[i] = std::string(argv[i]);
-  }
 }
 
 Game::~Game()

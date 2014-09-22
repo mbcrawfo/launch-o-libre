@@ -8,7 +8,7 @@
 #include <vector>
 
 /**
- * Encasulates the systems that make up the game.
+ * Encapsulates the systems that make up the game.
  */
 class Game
 {
@@ -22,11 +22,10 @@ public:
   // max desired time for a single frame
   static float MAX_FRAME_TIME;
 
-  Game() = delete;
+  Game();
   Game(const Game&) = delete;
   Game& operator=(const Game&) = delete;
 
-  Game(int argc, char* argv[]);
   ~Game();
 
   void run();

@@ -111,6 +111,7 @@
     <ClInclude Include="math\AABB2.h" />
     <ClInclude Include="math\fp_compare.h" />
     <ClInclude Include="math\Vector2.h" />
+    <ClInclude Include="options.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="utility\conversions.h" />
     <ClInclude Include="utility\Timer.h" />

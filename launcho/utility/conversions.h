@@ -3,7 +3,7 @@
 #include <sstream>
 
 /**
-* @return The string representation of val, provided that it implements
+* Returns the string representation of val, provided that it implements
 * operator<<.
 */
 template<typename T>
@@ -14,6 +14,9 @@ std::string toString(const T& val)
   return ss.str();
 }
 
+/**
+ * Attempts to convert the string to the given type.
+ */
 template<typename T>
 T fromString(const std::string& s)
 {

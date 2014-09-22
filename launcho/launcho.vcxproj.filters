@@ -45,5 +45,6 @@
     <ClInclude Include="utility\conversions.h">
       <Filter>utility</Filter>
     </ClInclude>
+    <ClInclude Include="options.h" />
   </ItemGroup>
 </Project>
