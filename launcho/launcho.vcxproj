@@ -95,14 +95,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="GameOptions.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math\AABB2.cpp" />
     <ClCompile Include="math\Vector2.cpp" />
+    <ClCompile Include="SDLRenderer.cpp" />
     <ClCompile Include="utility\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameLogic.h" />
     <ClInclude Include="GameOptions.h" />
     <ClInclude Include="IEventSystem.h" />
     <ClInclude Include="ILogicSystem.h" />
@@ -112,6 +115,7 @@
     <ClInclude Include="math\fp_compare.h" />
     <ClInclude Include="math\Vector2.h" />
     <ClInclude Include="options.h" />
+    <ClInclude Include="SDLRenderer.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="utility\conversions.h" />
     <ClInclude Include="utility\Timer.h" />

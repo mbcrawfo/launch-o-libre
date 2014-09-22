@@ -13,6 +13,8 @@
     </ClCompile>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameOptions.cpp" />
+    <ClCompile Include="SDLRenderer.cpp" />
+    <ClCompile Include="GameLogic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">
@@ -46,5 +48,7 @@
       <Filter>utility</Filter>
     </ClInclude>
     <ClInclude Include="options.h" />
+    <ClInclude Include="SDLRenderer.h" />
+    <ClInclude Include="GameLogic.h" />
   </ItemGroup>
 </Project>

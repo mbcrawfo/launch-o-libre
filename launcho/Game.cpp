@@ -1,5 +1,7 @@
 #include "Game.h"
 #include "utility/Timer.h"
+#include "SDLRenderer.h"
+#include "GameLogic.h"
 #include <SDL.h>
 #include <thread>
 #include <iostream>
@@ -30,15 +32,15 @@ void Game::run()
 
 void Game::initialize()
 {
-  SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO);
+  SDL_Init(SDL_INIT_EVERYTHING);
 
-  logic = new NullLogicSystem;
-  render = new NullRenderSystem;
+  logic = new GameLogic;
+  render = new SDLRenderer;
   physics = new NullPhysicsSystem;
   eventManager = new NullEventSystem;
 
   logic->initialize();
-  render->initialize();
+  render->initialize("Launch-o-Libre");
   physics->initialize();
   eventManager->initialize();
 }
@@ -61,7 +63,7 @@ void Game::mainLoop()
 
     lastFrameTime = timer.elapsedMilliF();
     fps = lastFrameTime / 1000.0f;
-
+    
     // prevent using 100% cpu
     if (lastFrameTime < MAX_FRAME_TIME)
     {
