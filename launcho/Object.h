@@ -1,5 +1,8 @@
 #pragma once
 
+<<<<<<< HEAD
+#include "types.h"
+=======
 #include "types.h"
 #include <map>
 #include <memory>
@@ -44,3 +47,4 @@ public:
 		return std::weak_ptr<ComponentType>();
 	}
 };
+>>>>>>> upstream/master
