@@ -32,7 +32,7 @@ void Game::run()
 
 void Game::initialize()
 {
-  SDL_Init(SDL_INIT_EVERYTHING);
+  SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO);
 
   logic = new GameLogic;
   render = new SDLRenderer;
@@ -40,7 +40,7 @@ void Game::initialize()
   eventManager = new NullEventSystem;
 
   logic->initialize();
-  render->initialize("Launch-o-Libre");
+  render->initialize();
   physics->initialize();
   eventManager->initialize();
 }

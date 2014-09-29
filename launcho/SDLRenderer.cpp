@@ -3,12 +3,14 @@
 #include "options.h"
 #include <exception>
 
-void SDLRenderer::initialize(const std::string& windowTitle)
+void SDLRenderer::initialize()
 {
+  std::string title = GameOptions::getInstance().getString(WINDOW_TITLE);
   int width = GameOptions::getInstance().getInt(SCREEN_WIDTH);
   int height = GameOptions::getInstance().getInt(SCREEN_HEIGHT);
-  window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED,
-                            SDL_WINDOWPOS_CENTERED, width, height,
+  window = SDL_CreateWindow(title.c_str(),
+                            SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+                            width, height,
                             SDL_WINDOW_SHOWN);
   if (window == nullptr)
   {

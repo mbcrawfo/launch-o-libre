@@ -7,7 +7,7 @@
 /**
  * Holds settings for the game configuration.
  */
-class GameOptions
+class GameOptions final
   : public Singleton<GameOptions>
 {
 private:

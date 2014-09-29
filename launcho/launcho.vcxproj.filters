@@ -15,6 +15,10 @@
     <ClCompile Include="GameOptions.cpp" />
     <ClCompile Include="SDLRenderer.cpp" />
     <ClCompile Include="GameLogic.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="components\IComponent.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">
@@ -22,6 +26,9 @@
     </Filter>
     <Filter Include="utility">
       <UniqueIdentifier>{a67a1c15-1b46-49df-b33f-b842d5f91d25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components">
+      <UniqueIdentifier>{d080545e-e436-48ad-8580-857008b19ab5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -50,5 +57,10 @@
     <ClInclude Include="options.h" />
     <ClInclude Include="SDLRenderer.h" />
     <ClInclude Include="GameLogic.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="components\IComponent.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="types.h" />
   </ItemGroup>
 </Project>

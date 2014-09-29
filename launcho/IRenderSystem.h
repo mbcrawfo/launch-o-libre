@@ -10,7 +10,7 @@ public:
   /**
    * Initializes the rendering system. Should use exceptions to signal failure.
    */
-  virtual void initialize(const std::string& windowTitle) = 0;
+  virtual void initialize() = 0;
 
   /**
    * Updates the rendering system.
@@ -33,7 +33,7 @@ class NullRenderSystem
   : public IRenderSystem
 {
 public:
-  virtual void initialize(const std::string&) override {}
+  virtual void initialize() override {}
   virtual void update(const float deltaMs) override { (void) deltaMs; }
   virtual void destroy() override {}
 };
