@@ -3,18 +3,18 @@
 #include <cstdint>
 #include <memory>
 
-// Used to identify objects.
-typedef uint32_t ObjectID;
+// Used to identify entities.
+typedef uint32_t EntityID;
 
 // used to identify types of components
 typedef uint32_t ComponentTypeID;
 
-// Shared point typedefs
+// Shared pointer typedefs
 
-class Object;
-typedef std::shared_ptr<Object> StrongObjectPtr;
-typedef std::weak_ptr<Object> WeakObjectPtr;
+class Entity;
+typedef std::shared_ptr<Entity> StrongEntityPtr;
+typedef std::weak_ptr<Entity> WeakEntityPtr;
 
-class IComponent;
-typedef std::shared_ptr<IComponent> StrongComponentPtr;
-typedef std::weak_ptr<IComponent> WeakComponentPtr;
+class Component;
+typedef std::shared_ptr<Component> StrongComponentPtr;
+typedef std::weak_ptr<Component> WeakComponentPtr;

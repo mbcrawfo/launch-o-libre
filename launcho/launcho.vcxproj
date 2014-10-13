@@ -94,19 +94,19 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="components\IComponent.cpp" />
+    <ClCompile Include="components\Component.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="GameOptions.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math\AABB2.cpp" />
     <ClCompile Include="math\Vector2.cpp" />
-    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="SDLRenderer.cpp" />
     <ClCompile Include="utility\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="components\IComponent.h" />
+    <ClInclude Include="components\Component.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameLogic.h" />
     <ClInclude Include="GameOptions.h" />
@@ -117,7 +117,7 @@
     <ClInclude Include="math\AABB2.h" />
     <ClInclude Include="math\fp_compare.h" />
     <ClInclude Include="math\Vector2.h" />
-    <ClInclude Include="Object.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="options.h" />
     <ClInclude Include="SDLRenderer.h" />
     <ClInclude Include="Singleton.h" />
