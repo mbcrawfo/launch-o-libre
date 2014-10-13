@@ -13,9 +13,8 @@ public:
   /**
    * Updates the game logic.
    * @param deltaMs The elapsed time since the last frame.
-   * @return false when it is time for the game to shut down.
    */
-  virtual bool update(const float deltaMs) = 0;
+  virtual void update(const float deltaMs) = 0;
 
   /**
    * Tears down the physics system.
@@ -31,10 +30,9 @@ class NullLogicSystem
 {
 public:
   virtual void initialize() override {}
-  virtual bool update(const float deltaMs) override 
-  { 
+  virtual void update(const float deltaMs) override 
+  {
     (void) deltaMs;
-    return true;
   }
   virtual void destroy() override {}
 };

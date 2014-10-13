@@ -7,9 +7,6 @@ class GameLogic final
 {
 public:
   virtual void initialize() override;
-  virtual bool update(const float deltaMs) override;
+  virtual void update(const float deltaMs) override;
   virtual void destroy() override;
-
-private:
-  bool processEvents();
 };

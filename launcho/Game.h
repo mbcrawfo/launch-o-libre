@@ -4,19 +4,19 @@
 #include "IRenderSystem.h"
 #include "IPhysicsSystem.h"
 #include "IEventSystem.h"
-#include <string>
-#include <vector>
+#include <SFML/Graphics.hpp>
+#include <memory>
 
 /**
  * Encapsulates the systems that make up the game.
  */
 class Game
 {
-  std::vector<std::string> args;
-  ILogicSystem* logic;
-  IRenderSystem* render;
-  IPhysicsSystem* physics;
-  IEventSystem* eventManager;
+  std::shared_ptr<sf::RenderWindow> window;
+  std::shared_ptr<ILogicSystem> logic;
+  std::shared_ptr<IRenderSystem> render;
+  std::shared_ptr<IPhysicsSystem> physics;
+  std::shared_ptr<IEventSystem> eventManager;
 
 public:
   // max desired time for a single frame

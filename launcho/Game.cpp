@@ -1,8 +1,8 @@
 #include "Game.h"
 #include "utility/Timer.h"
-#include "SDLRenderer.h"
+#include "SFMLRenderer.h"
 #include "GameLogic.h"
-#include <SDL.h>
+#include "GameEventSystem.h"
 #include <thread>
 #include <iostream>
 
@@ -10,16 +10,16 @@
 float Game::MAX_FRAME_TIME = 1000.0f / 30.0f;
 
 Game::Game()
-  : logic(nullptr), render(nullptr), physics(nullptr), eventManager(nullptr)
+  : window(new sf::RenderWindow),
+    logic(new GameLogic),
+    render(new SFMLRenderer(window)),
+    physics(new NullPhysicsSystem),
+    eventManager(new GameEventSystem(window))
 {
 }
 
 Game::~Game()
 {
-  delete logic;
-  delete render;
-  delete physics;
-  delete eventManager;
 }
 
 void Game::run()
@@ -32,13 +32,6 @@ void Game::run()
 
 void Game::initialize()
 {
-  SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO);
-
-  logic = new GameLogic;
-  render = new SDLRenderer;
-  physics = new NullPhysicsSystem;
-  eventManager = new NullEventSystem;
-
   logic->initialize();
   render->initialize();
   physics->initialize();
@@ -47,16 +40,15 @@ void Game::initialize()
 
 void Game::mainLoop()
 {
-  bool running = true;
   float fps = 0;
   float lastFrameTime = 0.0f;
   Timer timer;
 
-  while (running)
+  while (window->isOpen())
   {
     timer.start();
 
-    running = logic->update(lastFrameTime);
+    logic->update(lastFrameTime);
     render->update(lastFrameTime);
     physics->update(lastFrameTime);
     eventManager->update(MAX_FRAME_TIME - timer.elapsedMilliF());
@@ -79,7 +71,5 @@ void Game::shutdown()
   physics->destroy();
   render->destroy();
   logic->destroy();
-
-  SDL_Quit();
 }
 
