@@ -6,7 +6,7 @@
 Entity::Entity(EntityID myID)
 : id(myID), components()
 {
-  assert(id != INVALID_ENTITY_ID);
+  assert(id != Entity::INVALID_ID);
 }
 
 bool Entity::initialize()
