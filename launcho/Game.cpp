@@ -54,7 +54,7 @@ void Game::mainLoop()
     eventManager->update(MAX_FRAME_TIME - timer.elapsedMilliF());
 
     lastFrameTime = timer.elapsedMilliF();
-    fps = lastFrameTime / 1000.0f;
+    fps = 1000.0f / lastFrameTime;
     
     // prevent using 100% cpu
     if (lastFrameTime < MAX_FRAME_TIME)

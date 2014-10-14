@@ -41,6 +41,6 @@ void Entity::destroy()
 void Entity::addComponent(StrongComponentPtr component)
 {
   assert(component.get() != nullptr);
-  assert(components.find(component->getID()) != components.end());
+  assert(components.find(component->getID()) == components.end());
   components[component->getID()] = component;
 }
