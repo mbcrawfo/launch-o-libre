@@ -20,6 +20,9 @@
     </ClCompile>
     <ClCompile Include="SFMLRenderer.cpp" />
     <ClCompile Include="GameEventSystem.cpp" />
+    <ClCompile Include="utility\Log.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">
@@ -64,5 +67,8 @@
     </ClInclude>
     <ClInclude Include="SFMLRenderer.h" />
     <ClInclude Include="GameEventSystem.h" />
+    <ClInclude Include="utility\Log.h">
+      <Filter>utility</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

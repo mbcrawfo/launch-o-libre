@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "GameOptions.h"
 #include "options.h"
+#include "utility/Log.h"
 
 int main(int argc, char* argv[])
 {
@@ -12,6 +13,7 @@ int main(int argc, char* argv[])
   // TODO: Implement these
   //GameOptions::getInstance().loadFromFile("filename goes here");
   //GameOptions::getInstance().parseCommandLine(argc, argv);  
+  
 
   Game game;
   game.run();

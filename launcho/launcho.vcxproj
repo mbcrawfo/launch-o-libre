@@ -104,6 +104,7 @@
     <ClCompile Include="math\Vector2.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="SFMLRenderer.cpp" />
+    <ClCompile Include="utility\Log.cpp" />
     <ClCompile Include="utility\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +126,7 @@
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="types.h" />
     <ClInclude Include="utility\conversions.h" />
+    <ClInclude Include="utility\Log.h" />
     <ClInclude Include="utility\Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
