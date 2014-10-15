@@ -3,11 +3,14 @@
 #include "SFMLRenderer.h"
 #include "GameLogic.h"
 #include "GameEventSystem.h"
+#include "utility/Log.h"
 #include <thread>
 #include <iostream>
 
+const std::string Game::TAG = "Game";
+
 // try to sustain 30 fps
-float Game::MAX_FRAME_TIME = 1000.0f / 30.0f;
+const float Game::MAX_FRAME_TIME = 1000.0f / 30.0f;
 
 Game::Game()
   : window(new sf::RenderWindow),
@@ -24,7 +27,6 @@ Game::~Game()
 
 void Game::run()
 {
-  // TODO: init logging system
   initialize();
   mainLoop();
   shutdown();
@@ -32,15 +34,19 @@ void Game::run()
 
 void Game::initialize()
 {
+  Log::verbose(TAG, "initialize start");
   logic->initialize();
   render->initialize();
   physics->initialize();
   eventManager->initialize();
+  Log::verbose(TAG, "initialize complete");
 }
 
 void Game::mainLoop()
 {
-  float fps = 0;
+  Log::verbose(TAG, "main loop start");
+
+  float fps = 0.0f;
   float lastFrameTime = 0.0f;
   Timer timer;
 
@@ -66,10 +72,12 @@ void Game::mainLoop()
 
 void Game::shutdown()
 {
+  Log::verbose(TAG, "shutdown begin");
   // tear down in reverse order of initialization
   eventManager->destroy();
   physics->destroy();
   render->destroy();
   logic->destroy();
+  Log::verbose(TAG, "shutdown complete");
 }
 

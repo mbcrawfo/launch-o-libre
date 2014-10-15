@@ -1,6 +1,30 @@
 #include "utility/Log.h"
 #include <cassert>
 #include <iostream>
+#include <sstream>
+
+static std::string getLevelPrefix(const LogLevel level)
+{
+  switch (level)
+  {
+  case LogLevel::Verbose:
+    return "V";
+
+  case LogLevel::Debug:
+    return "D";
+
+  case LogLevel::Info:
+    return "I";
+
+  case LogLevel::Warning:
+    return "W";
+
+  case LogLevel::Error:
+    return "E";
+  }
+
+  return "";
+}
 
 const std::string Log::FILE_NAME = "launcho.log";
 
@@ -43,12 +67,6 @@ void Log::error(const std::string& tag, const char* fmt, ...)
   getInstance().vprintf(LogLevel::Error, tag, fmt, args);
   va_end(args);
 }
-
-Log::~Log()
-{
-  fclose(file);
-}
-
 void Log::setLevel(const LogLevel level)
 {
   outputLevel = level;
@@ -67,6 +85,11 @@ void Log::setConsoleOutputEnable(bool status)
 void Log::printf(const LogLevel level, const std::string& tag, const char* fmt,
                  ...)
 {
+  if (level < outputLevel)
+  {
+    return;
+  }
+
   va_list args;
   va_start(args, fmt);
   vprintf(level, tag, fmt, args);
@@ -76,16 +99,15 @@ void Log::printf(const LogLevel level, const std::string& tag, const char* fmt,
 void Log::vprintf(const LogLevel level, const std::string& tag, const char* fmt,
                   va_list args)
 {
-  char buffer[BUFFER_SIZE];
+  if (level < outputLevel)
+  {
+    return;
+  }
 
+  char buffer[BUFFER_SIZE];
   if (vsnprintf(buffer, BUFFER_SIZE, fmt, args) > 0)
   {
-    fputs(buffer, file);
-    fputs("\n", file);
-    if (consoleOutput)
-    {
-      std::cerr << buffer << std::endl;
-    }
+    print(getLevelPrefix(level) + " " + tag, buffer);
   }
   else
   {
@@ -93,12 +115,27 @@ void Log::vprintf(const LogLevel level, const std::string& tag, const char* fmt,
   }
 }
 
-Log::Log()
-: outputLevel(LogLevel::Warning), file(fopen(FILE_NAME.c_str(), "w"))
+void Log::print(const std::string& tag, const std::string& msg)
 {
-  assert(file != nullptr);
-  if (!file)
+  auto elapsed =
+    std::chrono::duration_cast<std::chrono::milliseconds>(
+      std::chrono::steady_clock::now() - startTime
+      ).count();
+  std::stringstream ss;
+
+  ss << "[" << elapsed << "] " << tag << ": " << msg;
+  file << ss.str() << std::endl;
+
+  if (consoleOutput)
   {
-    std::cerr << "Error opening log file" << std::endl;
+    std::cerr << ss.str() << std::endl;
   }
+}
+
+Log::Log()
+: outputLevel(LogLevel::Warning),
+  file(FILE_NAME, std::ios::out),
+  startTime(std::chrono::steady_clock::now()),
+  consoleOutput(false)
+{
 }

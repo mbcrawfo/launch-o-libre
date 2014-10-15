@@ -11,6 +11,8 @@ class GameOptions final
   : public Singleton<GameOptions>
 {
 private:
+  static const std::string TAG;
+
   std::unordered_map<std::string, std::string> options;
 
 public:
@@ -26,6 +28,11 @@ public:
    * @param filename Path of the file to load.
    */
   void loadFromFile(const std::string& filename);
+
+  /**
+   * Dumps all current options to the log file.
+   */
+  void dumpToLog() const;
   
   /**
    * Sets the value of an option.
@@ -61,4 +68,8 @@ public:
    * Returns an option as a float. See getString().
    */
   float getFloat(const std::string& key) const;
+
+private:
+  friend class Singleton<GameOptions>;
+  GameOptions() = default;
 };
