@@ -1,5 +1,7 @@
 #include "GameLogic.h"
 #include "utility/Timer.h"
+#include "Game.h"
+#include "events/EntityEvents.h"
 #include <cassert>
 
 const int MAX_EVENT_TIME = 5;
@@ -29,7 +31,9 @@ void GameLogic::addEntity(StrongEntityPtr entity)
 {
   assert(entities.find(entity->getID()) == entities.end());
   entities[entity->getID()] = entity;
-  // TODO: trigger new entity event
+  
+  StrongEventPtr evt(new EntityAddedEvent(entity->getID()));
+  Game::getInstance().getEventSystem()->queueEvent(evt);
 }
 
 WeakEntityPtr GameLogic::getEntity(const EntityID id) const
@@ -50,7 +54,11 @@ void GameLogic::removeEntity(const EntityID id)
   auto itr = entities.find(id);
   if (itr != entities.end())
   {
-    // TODO: trigger an entity removed event
+    // this event needs to be triggered immediately so that systems can
+    // respond to it before the entity is gone
+    StrongEventPtr evt(new EntityRemovedEvent(itr->second->getID()));
+    Game::getInstance().getEventSystem()->triggerEvent(evt);
+    
     itr->second->destroy();
     entities.erase(itr);
   }

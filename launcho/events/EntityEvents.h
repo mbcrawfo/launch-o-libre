@@ -11,7 +11,7 @@ public:
 
   const EntityID entity;
 
-  EntityAddedEvent(const EntityID entity, const float timestamp);
+  EntityAddedEvent(const EntityID entity);
   EventID getID() const override;
   std::string getName() const override;
 };
@@ -25,7 +25,7 @@ public:
 
   const EntityID entity;
 
-  EntityRemovedEvent(const EntityID entity, const float timestamp);
+  EntityRemovedEvent(const EntityID entity);
   EventID getID() const override;
   std::string getName() const override;
 };

@@ -1,7 +1,7 @@
 #include "EntityEvents.h"
 
-EntityAddedEvent::EntityAddedEvent(const EntityID entity, const float timestamp)
-:Event(timestamp), entity(entity)
+EntityAddedEvent::EntityAddedEvent(const EntityID entity)
+:Event(), entity(entity)
 {
 }
 
@@ -15,9 +15,8 @@ std::string EntityAddedEvent::getName() const
   return "EntityAddedEvent";
 }
 
-EntityRemovedEvent::EntityRemovedEvent(const EntityID entity, 
-                                       const float timestamp)
-: Event(timestamp), entity(entity)
+EntityRemovedEvent::EntityRemovedEvent(const EntityID entity)
+: Event(), entity(entity)
 {
 }
 

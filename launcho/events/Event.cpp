@@ -1,9 +1,10 @@
 #include "Event.h"
+#include "Game.h"
 
 const std::string Event::TAG = "Event";
 
-Event::Event(const float _timestamp)
-:timestamp(_timestamp)
+Event::Event()
+:timestamp(Game::getInstance().getGameTime())
 {
 }
 

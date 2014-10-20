@@ -17,7 +17,7 @@ public:
   template<typename EventType>
   static std::shared_ptr<EventType> cast(StrongEventPtr evt);
 
-  explicit Event(const float _timestamp);
+  Event();
   Event& operator=(Event&) = delete;
 
   virtual ~Event() = default;

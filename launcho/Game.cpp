@@ -13,7 +13,8 @@ const std::string Game::TAG = "Game";
 const float Game::MAX_FRAME_TIME = 1000.0f / 30.0f;
 
 Game::Game()
-  : lastFrameTime(0.0f),
+  : gameTime(0.0f),
+    lastFrameTime(0.0f),
     window(new sf::RenderWindow),
     logic(new GameLogic),    
     physics(new NullPhysicsSystem),
@@ -34,6 +35,11 @@ float Game::getlastFrameTime() const
 float Game::getFPS() const
 {
   return 1000.0f / lastFrameTime;
+}
+
+float Game::getGameTime() const
+{
+  return gameTime;
 }
 
 sf::RenderWindow* Game::getWindow()
@@ -92,6 +98,7 @@ void Game::mainLoop()
     render->update(lastFrameTime);
     eventManager->update(MAX_FRAME_TIME - timer.elapsedMilliF());
     lastFrameTime = timer.elapsedMilliF();
+    gameTime += lastFrameTime / 1000.0f;
     
     // prevent using 100% cpu
     if (lastFrameTime < MAX_FRAME_TIME)

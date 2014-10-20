@@ -19,7 +19,10 @@ class Game
   // max desired time for a single frame
   static const float MAX_FRAME_TIME;
 
+  // in ms
   float lastFrameTime;
+  // in sec
+  float gameTime;
   std::shared_ptr<sf::RenderWindow> window;
   std::shared_ptr<ILogicSystem> logic;  
   std::shared_ptr<IPhysicsSystem> physics;
@@ -37,6 +40,8 @@ public:
   // frame stats accessors
   float getlastFrameTime() const;
   float getFPS() const;
+
+  float getGameTime() const;
 
   // systems accessors - DO NOT HOLD THESE POINTERS
   // these should always return a valid pointer
