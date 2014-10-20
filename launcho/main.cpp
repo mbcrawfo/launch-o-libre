@@ -26,8 +26,6 @@ int main(int argc, char* argv[])
   //GameOptions::getInstance().parseCommandLine(argc, argv); 
   
   GameOptions::getInstance().dumpToLog();
-  
-  Game game;
-  game.run();
+  Game::getInstance().run();
   return 0;
 }

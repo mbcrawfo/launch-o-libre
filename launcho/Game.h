@@ -4,6 +4,7 @@
 #include "IRenderSystem.h"
 #include "IPhysicsSystem.h"
 #include "IEventSystem.h"
+#include "utility/Singleton.h"
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <string>
@@ -12,23 +13,20 @@
  * Encapsulates the systems that make up the game.
  */
 class Game
+  : public Singleton<Game>
 {
   static const std::string TAG;
   // max desired time for a single frame
   static const float MAX_FRAME_TIME;
 
+  float lastFrameTime;
   std::shared_ptr<sf::RenderWindow> window;
-  std::shared_ptr<ILogicSystem> logic;
-  std::shared_ptr<IRenderSystem> render;
+  std::shared_ptr<ILogicSystem> logic;  
   std::shared_ptr<IPhysicsSystem> physics;
+  std::shared_ptr<IRenderSystem> render;
   std::shared_ptr<IEventSystem> eventManager;
 
-public:
-  // prevent copying
-  Game(const Game&) = delete;
-  Game& operator=(const Game&) = delete;
-  
-  Game();
+public:  
   ~Game();
 
   /**
@@ -36,7 +34,22 @@ public:
    */
   void run();
 
+  // frame stats accessors
+  float getlastFrameTime() const;
+  float getFPS() const;
+
+  // systems accessors - DO NOT HOLD THESE POINTERS
+  // these should always return a valid pointer
+  sf::RenderWindow* getWindow();
+  ILogicSystem* getLogicSystem();
+  IPhysicsSystem* getPhysicsSystem();
+  IRenderSystem* getRenderSystem();
+  IEventSystem* getEventSystem();
+
 private:
+  friend class Singleton<Game>;
+  Game();
+
   /**
    * Init all sub systems of the game.
    */

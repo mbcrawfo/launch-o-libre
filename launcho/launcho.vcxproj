@@ -123,7 +123,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="options.h" />
     <ClInclude Include="SFMLRenderer.h" />
-    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="utility\Singleton.h" />
     <ClInclude Include="types.h" />
     <ClInclude Include="utility\conversions.h" />
     <ClInclude Include="utility\Log.h" />

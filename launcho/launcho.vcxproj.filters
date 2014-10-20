@@ -53,7 +53,6 @@
     <ClInclude Include="IPhysicsSystem.h" />
     <ClInclude Include="IRenderSystem.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Singleton.h" />
     <ClInclude Include="GameOptions.h" />
     <ClInclude Include="utility\conversions.h">
       <Filter>utility</Filter>
@@ -70,5 +69,6 @@
     <ClInclude Include="utility\Log.h">
       <Filter>utility</Filter>
     </ClInclude>
+    <ClInclude Include="utility\Singleton.h" />
   </ItemGroup>
 </Project>

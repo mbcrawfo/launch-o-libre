@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Singleton.h"
+#include "utility/Singleton.h"
 #include <string>
 #include <unordered_map>
 
