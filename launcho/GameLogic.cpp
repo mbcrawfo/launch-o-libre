@@ -1,5 +1,6 @@
 #include "GameLogic.h"
 #include "utility/Timer.h"
+#include <cassert>
 
 const int MAX_EVENT_TIME = 5;
 
@@ -24,38 +25,11 @@ void GameLogic::destroy()
   entities.clear();
 }
 
-WeakEntityPtr GameLogic::createSimpleEntity(const EntityType type,
-                                            const Vector2& pos,
-                                            const AABB2& size)
+void GameLogic::addEntity(StrongEntityPtr entity)
 {
-  // TODO: dump this whole method for a factory
-
-  static EntityID currentID = Entity::INVALID_ID;
-
-  currentID++;
-  StrongEntityPtr entity(new Entity(currentID));
-  // add transform component for pos
-  // add physics component for size
-  
-  switch (type)
-  {
-  case EntityType::Player:
-    // add blue render component for size
-    break;
-
-  case EntityType::Enemy:
-    // add red render component for size
-    break;
-
-  case EntityType::Terrain:    
-    // add green render component for size
-    break;
-  }
-
-  entities[currentID] = entity;
+  assert(entities.find(entity->getID) == entities.end());
+  entities[entity->getID()] = entity;
   // TODO: trigger new entity event
-
-  return entity;
 }
 
 WeakEntityPtr GameLogic::getEntity(const EntityID id) const

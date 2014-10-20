@@ -45,6 +45,8 @@ public:
    */
 	void destroy();
 
+  EntityID getID() const;
+
   /**
    * Add a component to the entity.  May only have one component of each type.
    */

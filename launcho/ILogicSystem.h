@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Entity.h"
+#include "types.h"
+
 class ILogicSystem
 {
 public:
@@ -20,19 +23,20 @@ public:
    * Tears down the physics system.
    */
   virtual void destroy() = 0;
-};
 
-/**
- * Logic system that does nothing.
- */
-class NullLogicSystem
-  : public ILogicSystem
-{
-public:
-  virtual void initialize() override {}
-  virtual void update(const float deltaMs) override 
-  {
-    (void) deltaMs;
-  }
-  virtual void destroy() override {}
+  // Adds an entity to the logic system.
+  virtual void addEntity(StrongEntityPtr entity) = 0;
+
+  /**
+  * Get an entity.
+  * @param id Entity to retrieve.
+  * @return The entity.
+  */
+  virtual WeakEntityPtr getEntity(const EntityID id) const = 0;
+
+  /**
+  * Removes an entity from the game.
+  * @param id Entity to remove.
+  */
+  virtual void removeEntity(const EntityID id) = 0;
 };

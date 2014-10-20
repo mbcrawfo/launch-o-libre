@@ -38,6 +38,11 @@ void Entity::destroy()
   }
 }
 
+EntityID Entity::getID() const
+{
+  return id;
+}
+
 void Entity::addComponent(StrongComponentPtr component)
 {
   assert(component.get() != nullptr);
