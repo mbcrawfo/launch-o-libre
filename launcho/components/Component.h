@@ -26,7 +26,7 @@ public:
    * Initializes this component.
    * @return false if initialization failed.
    */
-  virtual bool initialize() = 0;
+  virtual bool initialize() { return true;  }
 
   /**
    * Performs the frame update for this component.
@@ -37,5 +37,5 @@ public:
   /**
    * Destroys the component, freeing resources.
    */
-  virtual void destroy() {};
+  virtual void destroy() = 0;
 };

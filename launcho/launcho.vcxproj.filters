@@ -23,6 +23,8 @@
     <ClCompile Include="utility\Log.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="components\RectangleRenderComponent.cpp" />
+    <ClCompile Include="components\TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">
@@ -70,5 +72,7 @@
       <Filter>utility</Filter>
     </ClInclude>
     <ClInclude Include="utility\Singleton.h" />
+    <ClInclude Include="components\TransformComponent.h" />
+    <ClInclude Include="components\RectangleRenderComponent.h" />
   </ItemGroup>
 </Project>

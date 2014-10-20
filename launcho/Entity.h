@@ -65,7 +65,7 @@ std::weak_ptr<ComponentType> Entity::getComponent() const
   auto itr = components.find(ComponentType::ID);
   if (itr != components.end())
   {
-    auto ptr = static_pointer_cast<ComponentType>(itr->second);
+    auto ptr = std::static_pointer_cast<ComponentType>(itr->second);
     return std::weak_ptr<ComponentType>(ptr);
   }
   else

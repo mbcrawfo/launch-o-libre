@@ -95,6 +95,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="components\Component.cpp" />
+    <ClCompile Include="components\RectangleRenderComponent.cpp" />
+    <ClCompile Include="components\TransformComponent.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameEventSystem.cpp" />
     <ClCompile Include="GameLogic.cpp" />
@@ -109,6 +111,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="components\Component.h" />
+    <ClInclude Include="components\RectangleRenderComponent.h" />
+    <ClInclude Include="components\TransformComponent.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameEventSystem.h" />
     <ClInclude Include="GameLogic.h" />

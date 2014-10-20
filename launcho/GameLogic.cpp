@@ -27,7 +27,7 @@ void GameLogic::destroy()
 
 void GameLogic::addEntity(StrongEntityPtr entity)
 {
-  assert(entities.find(entity->getID) == entities.end());
+  assert(entities.find(entity->getID()) == entities.end());
   entities[entity->getID()] = entity;
   // TODO: trigger new entity event
 }

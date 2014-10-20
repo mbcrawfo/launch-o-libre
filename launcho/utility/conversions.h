@@ -1,5 +1,7 @@
 #pragma once
 
+#include "math/Vector2.h"
+#include <SFML/System/Vector2.hpp>
 #include <sstream>
 
 /**
@@ -25,4 +27,14 @@ T fromString(const std::string& s)
   ss << s;  
   ss >> val;
   return val;
+}
+
+inline Vector2 convert(const sf::Vector2f& v)
+{
+  return Vector2(v.x, v.y);
+}
+
+inline sf::Vector2f convert(const Vector2& v)
+{
+  return sf::Vector2f(v.x, v.y);
 }
