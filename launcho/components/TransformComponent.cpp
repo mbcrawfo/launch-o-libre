@@ -5,7 +5,7 @@ TransformComponent::TransformComponent(StrongEntityPtr _parent)
 {
 }
 
-ComponentTypeID TransformComponent::getID() const
+ComponentID TransformComponent::getID() const
 {
   return ID;
 }

@@ -9,7 +9,7 @@ RenderComponent::RenderComponent(StrongEntityPtr _parent, RenderLayer _layer)
 {
 }
 
-ComponentTypeID RenderComponent::getID() const
+ComponentID RenderComponent::getID() const
 {
   return ID;
 }

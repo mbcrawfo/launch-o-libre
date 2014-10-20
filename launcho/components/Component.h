@@ -22,7 +22,7 @@ public:
   /**
    * @return The id for the implementing component type.
    */
-  virtual ComponentTypeID getID() const = 0;
+  virtual ComponentID getID() const = 0;
 
   /**
    * Initializes this component.

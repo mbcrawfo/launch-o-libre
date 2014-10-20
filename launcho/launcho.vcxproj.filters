@@ -32,6 +32,9 @@
     <ClCompile Include="events\Event.cpp">
       <Filter>events</Filter>
     </ClCompile>
+    <ClCompile Include="events\EntityEvents.cpp">
+      <Filter>events</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">
@@ -91,6 +94,9 @@
       <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="events\Event.h">
+      <Filter>events</Filter>
+    </ClInclude>
+    <ClInclude Include="events\EntityEvents.h">
       <Filter>events</Filter>
     </ClInclude>
   </ItemGroup>

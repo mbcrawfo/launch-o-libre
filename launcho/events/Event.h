@@ -17,13 +17,15 @@ public:
   template<typename EventType>
   static std::shared_ptr<EventType> cast(StrongEventPtr evt);
 
-  Event(const float _timestamp);
+  explicit Event(const float _timestamp);
+  Event& operator=(Event&) = delete;
+
   virtual ~Event() = default;
 
   float getTimestamp() const;
 
   // get info about the event type
-  virtual EntityTypeID getID() const = 0;
+  virtual EventID getID() const = 0;
   virtual std::string getName() const = 0;
 };
 

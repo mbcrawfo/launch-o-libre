@@ -17,12 +17,12 @@ private:
   RenderLayer layer;
 
 public:
-  static const ComponentTypeID ID = 0xd29cfdfb;
+  static const ComponentID ID = 0xd29cfdfb;
 
   explicit RenderComponent(StrongEntityPtr _parent, 
                            RenderLayer _layer = RenderLayer::Background);
 
-  ComponentTypeID getID() const override final;
+  ComponentID getID() const override final;
 
   RenderLayer getLayer() const;
   void setLayer(RenderLayer newLayer);

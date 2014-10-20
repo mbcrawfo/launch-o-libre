@@ -8,10 +8,13 @@
 using EntityID = uint32_t;
 
 // used to identify types of components
-using ComponentTypeID = uint32_t;
+using ComponentID = uint32_t;
 
 // used to identify entity types
-using EntityTypeID = uint32_t;
+using EventID = uint32_t;
+
+// uniquely identifies callbacks so that they can be deleted
+using EventCallbackID = uint32_t;
 
 // Sets the rendering order of graphics objects
 // 0 is closest to the camera, 255 is farthest away

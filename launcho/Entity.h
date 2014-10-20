@@ -13,7 +13,7 @@ private:
   // unique id of this entity
   EntityID id;
   // components that make up the entity
-	std::map<ComponentTypeID, StrongComponentPtr> components;
+	std::map<ComponentID, StrongComponentPtr> components;
 
 public:
   // valid entities have id >= 1
