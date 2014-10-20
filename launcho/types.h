@@ -2,19 +2,41 @@
 
 #include <cstdint>
 #include <memory>
+#include <functional>
 
 // Used to identify entities.
-typedef uint32_t EntityID;
+using EntityID = uint32_t;
 
 // used to identify types of components
-typedef uint32_t ComponentTypeID;
+using ComponentTypeID = uint32_t;
+
+// used to identify entity types
+using EntityTypeID = uint32_t;
+
+// Sets the rendering order of graphics objects
+// 0 is closest to the camera, 255 is farthest away
+enum class RenderLayer : uint8_t
+{
+  UI = 0,
+  Player = 50,
+  Enemies = 100,
+  Scenery = 200,
+  Background = 255
+};
 
 // Shared pointer typedefs
 
 class Entity;
-typedef std::shared_ptr<Entity> StrongEntityPtr;
-typedef std::weak_ptr<Entity> WeakEntityPtr;
+using StrongEntityPtr = std::shared_ptr<Entity>;
+using WeakEntityPtr = std::weak_ptr<Entity>;
 
 class Component;
-typedef std::shared_ptr<Component> StrongComponentPtr;
-typedef std::weak_ptr<Component> WeakComponentPtr;
+using StrongComponentPtr = std::shared_ptr<Component>;
+using WeakComponentPtr = std::weak_ptr<Component>;
+
+class Event;
+using StrongEventPtr = std::shared_ptr<Event>;
+using WeakEventPtr = std::weak_ptr<Event>;
+
+// event callback functions
+using EventCallback = std::function<void(StrongEventPtr evt)>;

@@ -23,11 +23,14 @@
     <ClCompile Include="utility\Log.cpp">
       <Filter>utility</Filter>
     </ClCompile>
-    <ClCompile Include="components\RectangleRenderComponent.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
     <ClCompile Include="components\TransformComponent.cpp">
       <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="components\RenderComponent.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="events\Event.cpp">
+      <Filter>events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -39,6 +42,9 @@
     </Filter>
     <Filter Include="components">
       <UniqueIdentifier>{d080545e-e436-48ad-8580-857008b19ab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="events">
+      <UniqueIdentifier>{04094120-0f1b-43e3-a514-47b45c8e7a4c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,14 +81,17 @@
     <ClInclude Include="utility\Log.h">
       <Filter>utility</Filter>
     </ClInclude>
-    <ClInclude Include="components\RectangleRenderComponent.h">
-      <Filter>components</Filter>
-    </ClInclude>
     <ClInclude Include="components\TransformComponent.h">
       <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="utility\Singleton.h">
       <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="components\RenderComponent.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="events\Event.h">
+      <Filter>events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

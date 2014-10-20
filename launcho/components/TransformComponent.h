@@ -12,9 +12,7 @@ public:
 
   float rotation; // TODO: determine units and origin for this
   Vector2 position; // meters from origin
-  Vector2 velocity; // meters / sec
 
-  TransformComponent(StrongEntityPtr _parent);
+  explicit TransformComponent(StrongEntityPtr _parent);
   ComponentTypeID getID() const override;
-  void destroy() override;
 };

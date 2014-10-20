@@ -9,8 +9,3 @@ ComponentTypeID TransformComponent::getID() const
 {
   return ID;
 }
-
-void TransformComponent::destroy()
-{
-  parent = StrongEntityPtr();
-}

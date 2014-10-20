@@ -15,7 +15,9 @@ public:
   /**
    * @param _parent The owner of this component.
    */
-  Component(StrongEntityPtr _parent);
+  explicit Component(StrongEntityPtr _parent);
+
+  virtual ~Component() = default;
 
   /**
    * @return The id for the implementing component type.
@@ -26,16 +28,18 @@ public:
    * Initializes this component.
    * @return false if initialization failed.
    */
-  virtual bool initialize() { return true;  }
+  virtual bool initialize();
 
   /**
    * Performs the frame update for this component.
    * @param deltaMs The elapsed time since the last update.
    */
-  virtual void update(const float deltaMs) {}
+  virtual void update(const float deltaMs);
 
   /**
    * Destroys the component, freeing resources.
+   * A class that overrides this method MUST call Component::destroy() to break 
+   * the Entity->Component circular dependency.
    */
-  virtual void destroy() = 0;
+  virtual void destroy();
 };
