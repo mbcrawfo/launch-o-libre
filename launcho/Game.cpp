@@ -4,6 +4,7 @@
 #include "GameLogic.h"
 #include "GameEventSystem.h"
 #include "utility/Log.h"
+#include "events/EntityEvents.h"
 #include <thread>
 #include <iostream>
 

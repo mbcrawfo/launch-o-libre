@@ -3,6 +3,7 @@
 #include "events/Event.h"
 #include <cassert>
 #include <algorithm>
+#include <iterator>
 
 const std::string GameEventSystem::TAG = "GameEventSystem";
 
@@ -182,19 +183,14 @@ void GameEventSystem::processQueue(const float maxMs)
   // are sent to the new queue
   activeQueue = (activeQueue + 1) & 1;
 
+  float start = timer.elapsedMilliF();
+  int count = 0;
   while (!q.empty())
   {
     StrongEventPtr evt = q.front();
     q.pop_front();
-
-    auto itr = listeners.find(evt->getID());
-    if (itr != listeners.end())
-    {
-      for (auto listener : itr->second)
-      {
-        listener.second(evt);
-      }
-    }
+    triggerEvent(evt);
+    count++;
 
     if (timer.elapsedMilliF() > maxMs)
     {
@@ -206,8 +202,15 @@ void GameEventSystem::processQueue(const float maxMs)
         );
 
       // copy remaining events to the start of the current queue
-      std::copy(q.begin(), q.end(), queues[activeQueue].begin());
+      std::copy(q.begin(), q.end(), std::front_inserter(queues[activeQueue]));
       q.clear();
     }
   }
+
+  Log::verbose(
+    TAG,
+    "Processed %d events in %.2fms", 
+    count, 
+    timer.elapsedMilliF() - start
+    );
 }

@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
   Log::getInstance().setConsoleOutputEnable(true);
   Log::getInstance().setLevel(LogLevel::Debug);
 #else
-  Log::getInstance().setLevel(LogLevel::Warning);
+  Log::getInstance().setLevel(LogLevel::Debug);
 #endif
   Log::getInstance().print(TAG, "Launch-o-Libre started");
 
