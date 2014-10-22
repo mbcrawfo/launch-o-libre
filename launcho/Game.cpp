@@ -93,8 +93,13 @@ void Game::mainLoop()
 
   while (window->isOpen())
   {
-    frameCount++;
+    lastFrameTime = timer.elapsedMilliF();
     timer.start();
+
+    // frame stats    
+    gameTime += lastFrameTime / 1000.0f;
+    Log::verbose(TAG, "Frame %u time %.2fms", frameCount, lastFrameTime);
+    frameCount++;    
 
     Log::verbose(TAG, "Start frame %u", frameCount);
 
@@ -103,14 +108,9 @@ void Game::mainLoop()
     render->update(lastFrameTime);
     float budget = std::max(MAX_FRAME_TIME - timer.elapsedMilliF(), 0.0f);
     eventManager->update(budget);
-
-    // frame stats
-    lastFrameTime = timer.elapsedMilliF();
-    gameTime += lastFrameTime / 1000.0f;
-    Log::verbose(TAG, "Frame %u time %.2fms", frameCount, lastFrameTime);
     
     // prevent using 100% cpu
-    if (lastFrameTime < MAX_FRAME_TIME)
+    if (timer.elapsedMilliF() < MAX_FRAME_TIME)
     {
       std::this_thread::sleep_for(std::chrono::microseconds(1));
     }
