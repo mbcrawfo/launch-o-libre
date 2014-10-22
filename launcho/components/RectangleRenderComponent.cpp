@@ -12,19 +12,24 @@ bool RectangleRenderComponent::initialize()
 {
   // sfml defaults the origin of an object to its upper left corner,
   // need to move that origin to the center of the object
-  auto transform = parent->getComponent<TransformComponent>().lock();
-  Vector2 origin = transform->getPosition() - transform->getUpperLeftCorner();
-  rect.setSize(convert(transform->getBounds().halfSize * 2.0f));
-  rect.setOrigin(convert(origin));
+  auto tc = parent->getComponent<TransformComponent>().lock();
+  Vector2 origin = tc->getPosition() - tc->getUpperLeftCorner();
+  rect.setSize(convert(tc->getBounds().halfSize * 2.0f));
+  rect.setOrigin(convert(tc->getBounds().halfSize));
   return true;
 }
 
 void RectangleRenderComponent::draw(sf::RenderTarget& tgt)
 {
-  auto transform = parent->getComponent<TransformComponent>().lock();
-  rect.setRotation(transform->getRotation());
-  rect.setPosition(convert(transform->getPosition()));
-  tgt.draw(rect);
+  auto tc = parent->getComponent<TransformComponent>().lock();
+  sf::Transform transform;
+  transform.translate(
+    tc->getPosition().x,
+    // SFML uses an inverted y axis, need to account for that
+    tgt.getSize().y - tc->getPosition().y
+    );
+  transform.rotate(tc->getRotation());
+  tgt.draw(rect, transform);
 }
 
 const sf::Color& RectangleRenderComponent::getColor() const
