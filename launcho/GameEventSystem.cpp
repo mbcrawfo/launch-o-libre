@@ -1,6 +1,7 @@
 #include "GameEventSystem.h"
 #include "utility/Log.h"
 #include "events/Event.h"
+#include "events/InputEvents.h"
 #include <cassert>
 #include <algorithm>
 #include <iterator>
@@ -52,7 +53,7 @@ bool GameEventSystem::addListener(EventID evtID, EventCallbackID callbackID,
     {
       Log::warning(
         TAG,
-        "Attempt to double register callbackID %08x to event type %08x",
+        "Attempt to double register callbackID %08x (event type %08x)",
         callbackID, 
         evtID
         );
@@ -64,7 +65,7 @@ bool GameEventSystem::addListener(EventID evtID, EventCallbackID callbackID,
     listeners[evtID].emplace(callbackID, fn);
     Log::verbose(
       TAG,
-      "Added callbackID %08x for event type %08x",
+      "Added callbackID %08x (event type %08x)",
       callbackID,
       evtID
       );    
@@ -116,7 +117,7 @@ void GameEventSystem::triggerEvent(StrongEventPtr evt) const
   assert(evt != nullptr);
   Log::verbose(
     TAG,
-    "Triggering event type %08x (%s))",
+    "Triggering event type %08x (%s)",
     evt->getID(),
     evt->getName()
     );
@@ -137,7 +138,7 @@ void GameEventSystem::queueEvent(StrongEventPtr evt)
   queues[activeQueue].push_back(evt);
   Log::verbose(
     TAG, 
-    "Queued event type %08x (%s))",
+    "Queued event type %08x (%s)",
     evt->getID(),
     evt->getName()
     );
@@ -196,6 +197,11 @@ void GameEventSystem::processWindowEvents()
     {
       window->close();
     }
+    else if (evt.type == sf::Event::KeyPressed || 
+             evt.type == sf::Event::KeyReleased)
+    {
+      dispatchKeyboardEvent(evt);
+    }
   }
 
   Log::verbose(
@@ -243,4 +249,71 @@ void GameEventSystem::processQueue(const float maxMs)
     count, 
     timer.elapsedMilliF() - start
     );
+}
+
+void GameEventSystem::dispatchKeyboardEvent(const sf::Event& evt)
+{
+  enum
+  {
+    UP = 0,
+    DOWN = 1,
+    LEFT = 2,
+    RIGHT = 3
+  };
+  // tracks keys that are currently down
+  static bool keyStates[4] = { false };
+
+  assert(evt.type == sf::Event::KeyPressed || 
+         evt.type == sf::Event::KeyReleased);
+  
+  switch (evt.key.code)
+  {
+  case sf::Keyboard::Up:
+    if ((evt.type == sf::Event::KeyPressed) && !keyStates[UP])
+    {
+      keyStates[UP] = true;
+      triggerEvent(StrongEventPtr(new InputUpEvent));
+    }
+    else if ((evt.type == sf::Event::KeyReleased) && keyStates[UP])
+    {
+      keyStates[UP] = false;
+    }
+    break;
+
+  case sf::Keyboard::Down:
+    if ((evt.type == sf::Event::KeyPressed) && !keyStates[DOWN])
+    {
+      keyStates[DOWN] = true;
+      triggerEvent(StrongEventPtr(new InputDownEvent));
+    }
+    else if ((evt.type == sf::Event::KeyReleased) && keyStates[DOWN])
+    {
+      keyStates[DOWN] = false;
+    }
+    break;
+
+  case sf::Keyboard::Left:
+    if ((evt.type == sf::Event::KeyPressed) && !keyStates[LEFT])
+    {
+      keyStates[LEFT] = true;
+      triggerEvent(StrongEventPtr(new InputLeftEvent));
+    }
+    else if ((evt.type == sf::Event::KeyReleased) && keyStates[LEFT])
+    {
+      keyStates[LEFT] = false;
+    }
+    break;
+
+  case sf::Keyboard::Right:
+    if ((evt.type == sf::Event::KeyPressed) && !keyStates[RIGHT])
+    {
+      keyStates[RIGHT] = true;
+      triggerEvent(StrongEventPtr(new InputRightEvent));
+    }
+    else if ((evt.type == sf::Event::KeyReleased) && keyStates[RIGHT])
+    {
+      keyStates[RIGHT] = false;
+    }
+    break;
+  }
 }

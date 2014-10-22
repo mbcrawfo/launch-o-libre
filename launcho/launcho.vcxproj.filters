@@ -38,6 +38,9 @@
     <ClCompile Include="components\RectangleRenderComponent.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="events\InputEvents.cpp">
+      <Filter>events</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">
@@ -104,6 +107,9 @@
     </ClInclude>
     <ClInclude Include="components\RectangleRenderComponent.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="events\InputEvents.h">
+      <Filter>events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

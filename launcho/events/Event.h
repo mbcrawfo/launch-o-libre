@@ -26,7 +26,7 @@ public:
 
   // get info about the event type
   virtual EventID getID() const = 0;
-  virtual std::string getName() const = 0;
+  virtual const char* getName() const = 0;
 };
 
 template<typename EventType>

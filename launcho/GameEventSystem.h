@@ -47,4 +47,5 @@ public:
 private:
   void processWindowEvents();
   void processQueue(const float maxMs);
+  void dispatchKeyboardEvent(const sf::Event& evt);
 };

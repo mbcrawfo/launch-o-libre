@@ -39,4 +39,7 @@ public:
   * @param id Entity to remove.
   */
   virtual void removeEntity(const EntityID id) = 0;
+
+  // Shortcut to get the player entity
+  virtual WeakEntityPtr getPlayer() = 0;
 };

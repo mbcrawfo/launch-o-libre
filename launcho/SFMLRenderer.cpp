@@ -30,30 +30,61 @@ void SFMLRenderer::initialize()
     );
   Log::debug(TAG, "Window created, %dx%d", width, height);
 
+  // create the view
+  view.setSize(sf::Vector2f((float)width, (float)height));
+  view.setViewport(sf::FloatRect(0, 0, 1, 1));
+  view.setCenter(width / 2.0f, height / 2.0f);
+
+  // and the target texture
+  if (!renderTexture.create(width, height))
+  {
+    Log::error(TAG, "Unable to create render texture");
+  }
+  renderTexture.setView(view);
+
   // event registration
   auto evtMgr = Game::getInstance().getEventSystem();
   addedCallbackID = evtMgr->generateNextCallbackID();
   evtMgr->addListener(
     EntityAddedEvent::ID,
     addedCallbackID,
-    std::bind(&SFMLRenderer::entityAdded, this, std::placeholders::_1)
+    std::bind(&SFMLRenderer::entityAddedCallback, this, std::placeholders::_1)
     );
   removedCallbackID = evtMgr->generateNextCallbackID();
   evtMgr->addListener(
     EntityRemovedEvent::ID,
     removedCallbackID,
-    std::bind(&SFMLRenderer::entityRemoved, this, std::placeholders::_1)
+    std::bind(&SFMLRenderer::entityRemovedCallback, this, std::placeholders::_1)
     );
 }
 
 void SFMLRenderer::update(const float deltaMs)
 {
-  window->clear(sf::Color::White);
+  timer.start(); 
+
+  // TODO update view pos as the player moves
+  renderTexture.setView(view);
+  window->setView(view);
+
+  renderTexture.clear(sf::Color::White);  
+
   for (auto item : renderables)
   {
-    item.second->draw(*window);
+    item.second->draw(renderTexture);
   }
+
+  renderTexture.display();
+  window->draw(sf::Sprite(renderTexture.getTexture()));
+
+  // HACK: SFML 2.1 is a piece of shit and doesn't clear correctly on certain
+  // gfx cards... supposed to be fixed in 2.2
+  // For whatever reason drawing this transparent rectangle fixes it
+  sf::RectangleShape shape(sf::Vector2f(0, 0));
+  shape.setFillColor(sf::Color(0, 0, 0, 0));
+  window->draw(shape);
+
   window->display();
+  Log::verbose(TAG, "Rendering complete in %.2fms", timer.elapsedMilliF());
 }
 
 void SFMLRenderer::destroy()
@@ -63,7 +94,7 @@ void SFMLRenderer::destroy()
   evtMgr->removeListener(EntityRemovedEvent::ID, removedCallbackID);
 }
 
-void SFMLRenderer::entityAdded(StrongEventPtr evt)
+void SFMLRenderer::entityAddedCallback(StrongEventPtr evt)
 {
   auto eae = Event::cast<EntityAddedEvent>(evt);
   if (eae == nullptr)
@@ -102,9 +133,8 @@ void SFMLRenderer::entityAdded(StrongEventPtr evt)
       );
   }
 }
- 
 
-void SFMLRenderer::entityRemoved(StrongEventPtr evt)
+void SFMLRenderer::entityRemovedCallback(StrongEventPtr evt)
 {
   auto ere = Event::cast<EntityRemovedEvent>(evt);
   if (ere == nullptr)

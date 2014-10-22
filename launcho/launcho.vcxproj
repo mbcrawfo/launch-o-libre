@@ -100,6 +100,7 @@
     <ClCompile Include="components\TransformComponent.cpp" />
     <ClCompile Include="events\EntityEvents.cpp" />
     <ClCompile Include="events\Event.cpp" />
+    <ClCompile Include="events\InputEvents.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameEventSystem.cpp" />
     <ClCompile Include="GameLogic.cpp" />
@@ -119,6 +120,7 @@
     <ClInclude Include="components\TransformComponent.h" />
     <ClInclude Include="events\EntityEvents.h" />
     <ClInclude Include="events\Event.h" />
+    <ClInclude Include="events\InputEvents.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameEventSystem.h" />
     <ClInclude Include="GameLogic.h" />

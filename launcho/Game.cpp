@@ -101,7 +101,8 @@ void Game::mainLoop()
     logic->update(lastFrameTime);
     physics->update(lastFrameTime);
     render->update(lastFrameTime);
-    eventManager->update(MAX_FRAME_TIME - timer.elapsedMilliF());
+    float budget = std::max(MAX_FRAME_TIME - timer.elapsedMilliF(), 0.0f);
+    eventManager->update(budget);
 
     // frame stats
     lastFrameTime = timer.elapsedMilliF();
@@ -114,6 +115,9 @@ void Game::mainLoop()
       std::this_thread::sleep_for(std::chrono::microseconds(1));
     }
   }
+
+  Log::info(TAG, "Processed %u frames in %.4fs", frameCount, gameTime);
+  Log::info(TAG, "Avg frame time %.2fms", (gameTime / frameCount) * 1000.0f);
 }
 
 void Game::shutdown()
@@ -143,5 +147,6 @@ void Game::createEntities()
   rect->setLayer(RenderLayer::Player);
   rect->setColor(sf::Color::Green);
   ent->addComponent(rect);
+  ent->initialize();
   logic->addEntity(ent);
 }

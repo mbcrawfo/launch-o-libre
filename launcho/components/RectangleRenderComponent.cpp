@@ -23,10 +23,7 @@ void RectangleRenderComponent::draw(sf::RenderTarget& tgt)
 {
   auto transform = parent->getComponent<TransformComponent>().lock();
   rect.setRotation(transform->getRotation());
-
-  sf::Vector2f pos = convert(transform->getPosition());
-  rect.setPosition(pos.x, 600.0f - pos.y);  
-
+  rect.setPosition(convert(transform->getPosition()));
   tgt.draw(rect);
 }
 
