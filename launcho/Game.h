@@ -23,6 +23,7 @@ class Game
   float lastFrameTime;
   // in sec
   float gameTime;
+  uint32_t frameCount;
   std::shared_ptr<sf::RenderWindow> window;
   std::shared_ptr<ILogicSystem> logic;  
   std::shared_ptr<IPhysicsSystem> physics;
@@ -69,4 +70,8 @@ private:
    * Clean up resources.
    */
   void shutdown();
+
+  // TODO: replace with some kind of level loading or generating stuff
+  // probably in logic
+  void createEntities();
 };

@@ -25,14 +25,16 @@ public:
    */
   virtual void destroy() = 0;
 
+  // generate a new id to uniquely identify a callback
+  virtual EventCallbackID generateNextCallbackID() = 0;
+
   // adds a callback listening for the specific event type
   // generate a new guid for each callback so that it can be removed
-  virtual bool addListener(EventID evtID, EventCallbackID id, 
+  virtual bool addListener(EventID evtID, EventCallbackID callbackID,
                            EventCallback fn) = 0;
 
   // searches for a stored listener and removes it
-  virtual bool removeListener(EventID evtID, EventCallbackID id,
-                              EventCallback fn) = 0;
+  virtual bool removeListener(EventID evtID, EventCallbackID callbackID) = 0;
 
   // immediately fires an event without using the queue
   virtual void triggerEvent(StrongEventPtr evt) const = 0;

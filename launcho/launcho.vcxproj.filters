@@ -35,6 +35,9 @@
     <ClCompile Include="events\EntityEvents.cpp">
       <Filter>events</Filter>
     </ClCompile>
+    <ClCompile Include="components\RectangleRenderComponent.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">
@@ -98,6 +101,9 @@
     </ClInclude>
     <ClInclude Include="events\EntityEvents.h">
       <Filter>events</Filter>
+    </ClInclude>
+    <ClInclude Include="components\RectangleRenderComponent.h">
+      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

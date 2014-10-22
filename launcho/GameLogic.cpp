@@ -2,9 +2,10 @@
 #include "utility/Timer.h"
 #include "Game.h"
 #include "events/EntityEvents.h"
+#include "utility/Log.h"
 #include <cassert>
 
-const int MAX_EVENT_TIME = 5;
+const std::string GameLogic::TAG = "GameLogic";
 
 void GameLogic::initialize()
 {
@@ -20,18 +21,19 @@ void GameLogic::update(const float deltaMs)
 
 void GameLogic::destroy()
 {
-  for (auto entity : entities)
+  Log::verbose(TAG, "Clearing %u entities", entities.size());
+  while (!entities.empty())
   {
-    entity.second->destroy();
+    removeEntity(entities.begin()->second->getID());
   }
-  entities.clear();
 }
 
 void GameLogic::addEntity(StrongEntityPtr entity)
 {
   assert(entities.find(entity->getID()) == entities.end());
   entities[entity->getID()] = entity;
-  
+  Log::debug(TAG, "Added entity %u", entity->getID());
+
   StrongEventPtr evt(new EntityAddedEvent(entity->getID()));
   Game::getInstance().getEventSystem()->queueEvent(evt);
 }
@@ -45,6 +47,7 @@ WeakEntityPtr GameLogic::getEntity(const EntityID id) const
   }
   else
   {
+    Log::warning(TAG, "Tried to retrieve non existing entity %u", id);
     return WeakEntityPtr();
   }
 }
@@ -61,5 +64,10 @@ void GameLogic::removeEntity(const EntityID id)
     
     itr->second->destroy();
     entities.erase(itr);
+    Log::debug(TAG, "Removed entity %u", id);
+  }
+  else
+  {
+    Log::warning(TAG, "Tried to retrieve non existing entity %u", id);
   }
 }

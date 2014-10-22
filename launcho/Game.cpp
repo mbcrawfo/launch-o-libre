@@ -4,7 +4,6 @@
 #include "GameLogic.h"
 #include "GameEventSystem.h"
 #include "utility/Log.h"
-#include "events/EntityEvents.h"
 #include <thread>
 #include <iostream>
 
@@ -16,6 +15,7 @@ const float Game::MAX_FRAME_TIME = 1000.0f / 30.0f;
 Game::Game()
   : gameTime(0.0f),
     lastFrameTime(0.0f),
+    frameCount(0),
     window(new sf::RenderWindow),
     logic(new GameLogic),    
     physics(new NullPhysicsSystem),
@@ -71,6 +71,7 @@ IEventSystem* Game::getEventSystem()
 void Game::run()
 {
   initialize();
+  createEntities();
   mainLoop();
   shutdown();
 }
@@ -88,18 +89,24 @@ void Game::initialize()
 void Game::mainLoop()
 {
   Log::verbose(TAG, "main loop start");
-  Timer timer;
+  Timer timer;  
 
   while (window->isOpen())
   {
+    frameCount++;
     timer.start();
 
-    logic->update(lastFrameTime);    
+    Log::verbose(TAG, "Start frame %u", frameCount);
+
+    logic->update(lastFrameTime);
     physics->update(lastFrameTime);
     render->update(lastFrameTime);
     eventManager->update(MAX_FRAME_TIME - timer.elapsedMilliF());
+
+    // frame stats
     lastFrameTime = timer.elapsedMilliF();
     gameTime += lastFrameTime / 1000.0f;
+    Log::verbose(TAG, "Frame %u time %.2fms", frameCount, lastFrameTime);
     
     // prevent using 100% cpu
     if (lastFrameTime < MAX_FRAME_TIME)
@@ -112,12 +119,29 @@ void Game::mainLoop()
 void Game::shutdown()
 {
   Log::verbose(TAG, "shutdown begin");
-  // tear down in reverse order of initialization
-  eventManager->destroy();
-  render->destroy();
-  physics->destroy();  
   logic->destroy();
+  physics->destroy();
+  render->destroy();
+  eventManager->destroy();  
   Log::verbose(TAG, "shutdown complete");
 }
 
+// these includes are all tied to creating entities, remove when this method
+// is trashed
+#include "Entity.h"
+#include "components/TransformComponent.h"
+#include "components/RectangleRenderComponent.h"
 
+void Game::createEntities()
+{
+  StrongEntityPtr ent(new Entity(1));
+  StrongTransformComponentPtr trans(new TransformComponent(ent));
+  trans->setPosition(Vector2(400, 300));
+  trans->setSize(50, 50);
+  ent->addComponent(trans);
+  StrongRectangleRenderComponentPtr rect(new RectangleRenderComponent(ent));
+  rect->setLayer(RenderLayer::Player);
+  rect->setColor(sf::Color::Green);
+  ent->addComponent(rect);
+  logic->addEntity(ent);
+}

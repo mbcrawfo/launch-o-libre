@@ -29,3 +29,31 @@ public:
   EventID getID() const override;
   std::string getName() const override;
 };
+
+// Signals that an entity has moved in the game world
+class EntityMovedEvent
+  : public Event
+{
+public:
+  static const EventID ID = 0x257B5763;
+
+  const EntityID entity;
+
+  EntityMovedEvent(const EntityID entity);
+  EventID getID() const override;
+  std::string getName() const override;
+};
+
+// Signals that two entities have collided
+class EntityCollisionEvent
+  : public Event
+{
+  static const EventID ID = 0x20529961;
+
+  const EntityID first;
+  const EntityID second;
+
+  EntityCollisionEvent(const EntityID first, const EntityID second);
+  EventID getID() const override;
+  std::string getName() const override;
+};

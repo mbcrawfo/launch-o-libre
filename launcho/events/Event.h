@@ -41,7 +41,7 @@ std::shared_ptr<EventType> Event::cast(StrongEventPtr evt)
   else
   {
     Log::warning(TAG,
-                 "Invalid pointer cast, expected %u, type was %u (%s)"
+                 "Invalid pointer cast, expected %u, type was %u (%s)",
                  EventType::ID, 
                  evt->getID(), 
                  evt->getName()

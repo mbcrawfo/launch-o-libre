@@ -6,7 +6,6 @@
 #include <memory>
 #include <deque>
 #include <unordered_map>
-#include <vector>
 #include <string>
 
 class GameEventSystem
@@ -14,9 +13,8 @@ class GameEventSystem
 {
 private:
   using EventQueue = std::deque<StrongEventPtr>;
-  using Listener = std::pair<EventCallbackID, EventCallback>;
-  using ListenerVect = std::vector<Listener>;
-  using EventListenerMap = std::unordered_map<EventID, ListenerVect>;
+  using CallbackMap = std::unordered_map<EventCallbackID, EventCallback>;
+  using EventListenerMap = std::unordered_map<EventID, CallbackMap>;
 
   static const std::string TAG;
 
@@ -35,10 +33,11 @@ public:
   virtual void update(const float maxMs) override;
   virtual void destroy() override;
 
-  bool addListener(EventID evtID, EventCallbackID id,
+  EventCallbackID generateNextCallbackID() override;
+
+  bool addListener(EventID evtID, EventCallbackID callbackID,
                    EventCallback fn) override;
-  bool removeListener(EventID evtID, EventCallbackID id,
-                      EventCallback fn)  override;
+  bool removeListener(EventID evtID, EventCallbackID callbackID)  override;
 
   void triggerEvent(StrongEventPtr evt) const override;
   void queueEvent(StrongEventPtr evt) override;

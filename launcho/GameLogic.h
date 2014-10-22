@@ -5,11 +5,14 @@
 #include "math/Vector2.h"
 #include "math/AABB2.h"
 #include <map>
+#include <string>
 
 class GameLogic final
   : public ILogicSystem
 {
 private:
+  static const std::string TAG;
+
   std::map<EntityID, StrongEntityPtr> entities;
 
 public:

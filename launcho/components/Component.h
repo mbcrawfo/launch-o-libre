@@ -12,6 +12,10 @@ protected:
   StrongEntityPtr parent;
 
 public:
+  Component() = delete;
+  Component(Component&) = delete;
+  Component& operator =(Component&) = delete;
+
   /**
    * @param _parent The owner of this component.
    */

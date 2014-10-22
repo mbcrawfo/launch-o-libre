@@ -14,7 +14,7 @@ GameEventSystem::GameEventSystem(std::shared_ptr<sf::Window> window)
   queues(),
   activeQueue(0)
 {
-  assert(window.get() != nullptr);
+  assert(window != nullptr);
 }
 
 void GameEventSystem::initialize()
@@ -24,83 +24,87 @@ void GameEventSystem::initialize()
 void GameEventSystem::update(const float maxMs)
 {
   timer.start();
+  Log::verbose(TAG, "Starting event processing, time budget %.2fms", maxMs);
   processWindowEvents();
   processQueue(maxMs);
+  Log::verbose(TAG, "Total event time %.2fms", timer.elapsedMilliF());
 }
 
 void GameEventSystem::destroy()
 {
-  queues[0].clear();
-  queues[1].clear();
-  listeners.clear();
 }
 
-bool GameEventSystem::addListener(EventID evtID, EventCallbackID id,
+EventCallbackID GameEventSystem::generateNextCallbackID()
+{
+  static EventCallbackID currentID = 0;
+  return ++currentID;
+}
+
+bool GameEventSystem::addListener(EventID evtID, EventCallbackID callbackID,
                                   EventCallback fn)
 {
+  // check for duplicate listeners
   auto itr = listeners.find(evtID);
   if (itr != listeners.end())
   {
-    auto itr2 = std::find_if(
-      itr->second.begin(), 
-      itr->second.end(),
-      [&] (const Listener& l) {
-          return l.first == id;
-        }
-      );
-      
+    auto itr2 = itr->second.find(callbackID);      
     if (itr2 != itr->second.end())
     {
       Log::warning(
         TAG,
-        "Attempt to double register callback %u to event type %u",
-        id, 
+        "Attempt to double register callbackID %08x to event type %08x",
+        callbackID, 
         evtID
         );
       return false;
     }
   }
-
-  listeners[evtID].push_back(std::make_pair(id, fn));
-  Log::verbose(TAG, "Added listener %u for event type %u", id, evtID);
+  else
+  {
+    listeners[evtID].emplace(callbackID, fn);
+    Log::verbose(
+      TAG,
+      "Added callbackID %08x for event type %08x",
+      callbackID,
+      evtID
+      );    
+  }  
   return true;
 }
 
-bool GameEventSystem::removeListener(EventID evtID, EventCallbackID id,
-                                     EventCallback fn)
+bool GameEventSystem::removeListener(EventID evtID, EventCallbackID callbackID)
 {
-  auto itr = listeners.find(id);
+  auto itr = listeners.find(evtID);
   if (itr != listeners.end())
   {
-    auto itr2 = std::find_if(
-      itr->second.begin(),
-      itr->second.end(),
-      [&](const Listener& l) {
-          return l.first == id;
-        }
-      );
+    auto itr2 = itr->second.find(callbackID);
     if (itr2 != itr->second.end())
     {
       itr->second.erase(itr2);
       Log::verbose(
         TAG,
-        "Removed listener %u for event type %u",
-        id,
+        "Removed callbackID %08x (event type %08x)",
+        callbackID,
         evtID
         );
     }
-    Log::warning(
-      TAG,
-      "Tried to remove listener for %u but it was not found", 
-      id
-      );
+    else
+    {
+      Log::warning(
+        TAG,
+        "Tried to remove callbackID %08x (event type %08x), not found",
+        callbackID,
+        evtID
+        );
+    }
   }
   else
   {
     Log::warning(
       TAG, 
-      "Tried to remove listener for %u but no listeners were registered",
-      id
+      "Tried to remove callbackID %08x (event type %08x), no listeners found",
+      callbackID,
+      evtID
       );
   }
 
@@ -110,6 +114,13 @@ bool GameEventSystem::removeListener(EventID evtID, EventCallbackID id,
 void GameEventSystem::triggerEvent(StrongEventPtr evt) const
 {
   assert(evt != nullptr);
+  Log::verbose(
+    TAG,
+    "Triggering event type %08x (%s))",
+    evt->getID(),
+    evt->getName()
+    );
+
   auto itr = listeners.find(evt->getID());
   if (itr != listeners.end())
   {
@@ -124,6 +135,12 @@ void GameEventSystem::queueEvent(StrongEventPtr evt)
 {
   assert(evt != nullptr);
   queues[activeQueue].push_back(evt);
+  Log::verbose(
+    TAG, 
+    "Queued event type %08x (%s))",
+    evt->getID(),
+    evt->getName()
+    );
 }
 
 bool GameEventSystem::abortEvent(const EventID id)
@@ -139,10 +156,12 @@ bool GameEventSystem::abortEvent(const EventID id)
   if (itr != queues[activeQueue].end())
   {
     queues[activeQueue].erase(itr);
+    Log::verbose(TAG, "Event type %08x aborted", id);
     return true;
   }
   else
   {
+    Log::verbose(TAG, "Tried to abort event type %08x, none found", id);
     return false;
   }
 }
@@ -159,21 +178,32 @@ uint32_t GameEventSystem::abortAllEvents(const EventID id)
     }
     );
 
-  return count - queues[activeQueue].size();
+  count -= queues[activeQueue].size();
+  Log::verbose(TAG, "Aborted %08x events of type %08x", count, id);
+  return count;
 }
 
 void GameEventSystem::processWindowEvents()
 {
   sf::Event evt;
 
+  float start = timer.elapsedMilliF();
+  int count = 0;
   while (window->pollEvent(evt))
   {
+    count++;
     if (evt.type == sf::Event::Closed)
     {
       window->close();
-      return;
     }
   }
+
+  Log::verbose(
+    TAG,
+    "Processed %d window events in %.2fms",
+    count,
+    timer.elapsedMilliF() - start
+    );
 }
 
 void GameEventSystem::processQueue(const float maxMs)

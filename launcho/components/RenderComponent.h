@@ -4,6 +4,10 @@
 #include "types.h"
 #include <SFML/Graphics.hpp>
 
+class RenderComponent;
+using StrongRenderComponentPtr = std::shared_ptr<RenderComponent>;
+using WeakRenderComponentPtr = std::weak_ptr<RenderComponent>;
+
 /**
  * The base for all rendering components.  This is sub classed to implement a
  * specific type of render, but only this class has a unique id.
