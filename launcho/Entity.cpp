@@ -3,10 +3,20 @@
 #include <stdexcept>
 #include <cassert>
 
-Entity::Entity(EntityID myID)
-: id(myID), components()
+Entity::Entity(EntityID myID, const std::string& name)
+: id(myID), components(), name(name)
 {
   assert(id != Entity::INVALID_ID);
+}
+
+const char* Entity::getNameC() const
+{
+  return name.c_str();
+}
+
+const std::string& Entity::getName() const
+{
+  return name;
 }
 
 bool Entity::initialize()
@@ -49,3 +59,4 @@ void Entity::addComponent(StrongComponentPtr component)
   assert(components.find(component->getID()) == components.end());
   components[component->getID()] = component;
 }
+

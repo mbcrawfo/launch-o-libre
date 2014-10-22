@@ -12,7 +12,15 @@
 const std::string SFMLRenderer::TAG = "SFMLRenderer";
 
 SFMLRenderer::SFMLRenderer(std::shared_ptr<sf::RenderWindow> _window)
-: window(_window)
+: window(_window),
+  view(),
+  renderTexture(),
+  timer(),
+  renderables(),
+  sortedRenderables(),
+  needSortUpdate(false),
+  addedCallbackID(0),
+  removedCallbackID(0)
 {
   assert(window != nullptr);
 }
@@ -68,9 +76,10 @@ void SFMLRenderer::update(const float deltaMs)
 
   renderTexture.clear(sf::Color::White);  
 
-  for (auto item : renderables)
+  sortRenderables();
+  for (auto rc : sortedRenderables)
   {
-    item.second->draw(renderTexture);
+    rc->draw(renderTexture);
   }
 
   renderTexture.display();
@@ -94,6 +103,25 @@ void SFMLRenderer::destroy()
   evtMgr->removeListener(EntityRemovedEvent::ID, removedCallbackID);
 }
 
+void SFMLRenderer::sortRenderables()
+{
+  if (needSortUpdate)
+  {
+    auto sorter = 
+      [](StrongRenderComponentPtr rc1, StrongRenderComponentPtr rc2) {
+        // sort in reverse order
+        return rc1->getLayer() > rc2->getLayer();
+    };
+
+    std::sort(
+      sortedRenderables.begin(),
+      sortedRenderables.end(),
+      sorter
+      );
+    needSortUpdate = false;
+  }
+}
+
 void SFMLRenderer::entityAddedCallback(StrongEventPtr evt)
 {
   auto eae = Event::cast<EntityAddedEvent>(evt);
@@ -103,7 +131,7 @@ void SFMLRenderer::entityAddedCallback(StrongEventPtr evt)
       TAG,
       "Couldn't cast to EntityAddedEvent, type %u (%s)",
       evt->getID(),
-      evt->getName()
+      evt->getNameC()
       );
     return;
   }
@@ -122,6 +150,8 @@ void SFMLRenderer::entityAddedCallback(StrongEventPtr evt)
     else
     {
       renderables[entity->getID()] = rc;
+      sortedRenderables.push_back(rc);
+      needSortUpdate = true;
     }
   }
   else
@@ -143,22 +173,29 @@ void SFMLRenderer::entityRemovedCallback(StrongEventPtr evt)
       TAG,
       "Couldn't cast to EntityRemovedEvent, type %u (%s)",
       evt->getID(),
-      evt->getName()
+      evt->getNameC()
       );
     return;
   }
 
-  auto entity =
-    Game::getInstance().getLogicSystem()->getEntity(ere->entity).lock();
-  assert(entity != nullptr);
-
-  auto itr = renderables.find(entity->getID());
+  auto itr = renderables.find(ere->entity);
   if (itr != renderables.end())
   {
     renderables.erase(itr);
+
+    // is it cheaper to swap & pop then resort?
+    auto itr2 = std::find_if(
+      sortedRenderables.begin(),
+      sortedRenderables.end(),
+      [&](StrongRenderComponentPtr rc) {
+        return rc->getParentID() == ere->entity;
+      }
+      );
+    assert(itr2 != sortedRenderables.end());
+    sortedRenderables.erase(itr2);
   }
   else
   {
-    Log::debug(TAG, "Entity %u not found in renderable list", entity->getID());
+    Log::debug(TAG, "Entity %u not found in renderable list", ere->entity);
   }
 }

@@ -135,6 +135,7 @@ void Game::shutdown()
 #include "Entity.h"
 #include "components/TransformComponent.h"
 #include "components/RectangleRenderComponent.h"
+#include "components/PhysicsComponent.h"
 
 void Game::createEntities()
 {
@@ -145,8 +146,26 @@ void Game::createEntities()
   ent->addComponent(trans);
   StrongRectangleRenderComponentPtr rect(new RectangleRenderComponent(ent));
   rect->setLayer(RenderLayer::Player);
+  rect->setColor(sf::Color::Blue);
+  ent->addComponent(rect);
+  StrongPhysicsComponentPtr phys(new PhysicsComponent(ent));
+  phys->enableGravity(false);
+  ent->addComponent(phys);
+  ent->initialize();
+  logic->addEntity(ent);
+
+  ent = StrongEntityPtr(new Entity(2));
+  trans = StrongTransformComponentPtr(new TransformComponent(ent));
+  trans->setPosition(Vector2(400, 10));
+  trans->setSize(800, 20);
+  ent->addComponent(trans);
+  rect = StrongRectangleRenderComponentPtr(new RectangleRenderComponent(ent));
+  rect->setLayer(RenderLayer::Background);
   rect->setColor(sf::Color::Green);
   ent->addComponent(rect);
+  phys = StrongPhysicsComponentPtr(new PhysicsComponent(ent));
+  phys->enablePhysics(false);
+  ent->addComponent(phys);
   ent->initialize();
   logic->addEntity(ent);
 }

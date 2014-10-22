@@ -95,6 +95,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="components\Component.cpp" />
+    <ClCompile Include="components\PhysicsComponent.cpp" />
     <ClCompile Include="components\RectangleRenderComponent.cpp" />
     <ClCompile Include="components\RenderComponent.cpp" />
     <ClCompile Include="components\TransformComponent.cpp" />
@@ -115,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="components\Component.h" />
+    <ClInclude Include="components\PhysicsComponent.h" />
     <ClInclude Include="components\RectangleRenderComponent.h" />
     <ClInclude Include="components\RenderComponent.h" />
     <ClInclude Include="components\TransformComponent.h" />

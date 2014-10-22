@@ -12,3 +12,8 @@ float Event::getTimestamp() const
 {
   return timestamp;
 }
+
+const std::string Event::getName() const
+{
+  return getNameC();
+}

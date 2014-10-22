@@ -13,7 +13,7 @@ public:
 
   EntityAddedEvent(const EntityID entity);
   EventID getID() const override;
-  const char* getName() const override;
+  const char* getNameC() const override;
 };
 
 // Signals that an entity is being removed from the game.
@@ -27,7 +27,7 @@ public:
 
   EntityRemovedEvent(const EntityID entity);
   EventID getID() const override;
-  const char* getName() const override;
+  const char* getNameC() const override;
 };
 
 // Signals that an entity has moved in the game world
@@ -41,7 +41,7 @@ public:
 
   EntityMovedEvent(const EntityID entity);
   EventID getID() const override;
-  const char* getName() const override;
+  const char* getNameC() const override;
 };
 
 // Signals that two entities have collided
@@ -55,5 +55,5 @@ class EntityCollisionEvent
 
   EntityCollisionEvent(const EntityID first, const EntityID second);
   EventID getID() const override;
-  const char* getName() const override;
+  const char* getNameC() const override;
 };

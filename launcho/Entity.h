@@ -3,6 +3,7 @@
 #include "types.h"
 #include <map>
 #include <memory>
+#include <string>
 
 /**
  * Encapsulates an entity in the game world.
@@ -14,6 +15,7 @@ private:
   EntityID id;
   // components that make up the entity
 	std::map<ComponentID, StrongComponentPtr> components;
+  std::string name;
 
 public:
   // valid entities have id >= 1
@@ -27,7 +29,10 @@ public:
   /**
    * Creates a new, empty entity.
    */
-  explicit Entity(EntityID myID);
+  explicit Entity(EntityID myID, const std::string& name = "");
+
+  const char* getNameC() const;
+  const std::string& getName() const;
 
   /**
    * Initializes the entity's components.  Add all components before calling.

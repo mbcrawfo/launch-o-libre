@@ -41,6 +41,9 @@
     <ClCompile Include="events\InputEvents.cpp">
       <Filter>events</Filter>
     </ClCompile>
+    <ClCompile Include="components\PhysicsComponent.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">
@@ -110,6 +113,9 @@
     </ClInclude>
     <ClInclude Include="events\InputEvents.h">
       <Filter>events</Filter>
+    </ClInclude>
+    <ClInclude Include="components\PhysicsComponent.h">
+      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -10,7 +10,7 @@ public:
   static const EventID ID = 0x813BA703;
 
   EventID getID() const override;
-  const char* getName() const override;
+  const char* getNameC() const override;
 };
 
 // Keyboard input that moves the player down
@@ -21,7 +21,7 @@ public:
   static const EventID ID = 0xA6B8E5D0;
 
   EventID getID() const override;
-  const char* getName() const override;
+  const char* getNameC() const override;
 };
 
 // Keyboard input that moves the player left
@@ -32,7 +32,7 @@ public:
   static const EventID ID = 0x51C0A6B3;
 
   EventID getID() const override;
-  const char* getName() const override;
+  const char* getNameC() const override;
 };
 
 // Keyboard input that moves the player right
@@ -43,5 +43,5 @@ public:
   static const EventID ID = 0x8144BB8A;
 
   EventID getID() const override;
-  const char* getName() const override;
+  const char* getNameC() const override;
 };

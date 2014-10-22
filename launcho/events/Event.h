@@ -26,7 +26,8 @@ public:
 
   // get info about the event type
   virtual EventID getID() const = 0;
-  virtual const char* getName() const = 0;
+  virtual const char* getNameC() const = 0;
+  const std::string getName() const;
 };
 
 template<typename EventType>
@@ -44,7 +45,7 @@ std::shared_ptr<EventType> Event::cast(StrongEventPtr evt)
                  "Invalid pointer cast, expected %u, type was %u (%s)",
                  EventType::ID, 
                  evt->getID(), 
-                 evt->getName()
+                 evt->getNameC()
                  );
     return std::shared_ptr<EventType>();
   }

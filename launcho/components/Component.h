@@ -23,6 +23,8 @@ public:
 
   virtual ~Component() = default;
 
+  EntityID getParentID() const;
+
   /**
    * @return The id for the implementing component type.
    */

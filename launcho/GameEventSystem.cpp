@@ -119,7 +119,7 @@ void GameEventSystem::triggerEvent(StrongEventPtr evt) const
     TAG,
     "Triggering event type %08x (%s)",
     evt->getID(),
-    evt->getName()
+    evt->getNameC()
     );
 
   auto itr = listeners.find(evt->getID());
@@ -140,7 +140,7 @@ void GameEventSystem::queueEvent(StrongEventPtr evt)
     TAG, 
     "Queued event type %08x (%s)",
     evt->getID(),
-    evt->getName()
+    evt->getNameC()
     );
 }
 
@@ -272,7 +272,7 @@ void GameEventSystem::dispatchKeyboardEvent(const sf::Event& evt)
     if ((evt.type == sf::Event::KeyPressed) && !keyStates[UP])
     {
       keyStates[UP] = true;
-      triggerEvent(StrongEventPtr(new InputUpEvent));
+      queueEvent(StrongEventPtr(new InputUpEvent));
     }
     else if ((evt.type == sf::Event::KeyReleased) && keyStates[UP])
     {
@@ -284,7 +284,7 @@ void GameEventSystem::dispatchKeyboardEvent(const sf::Event& evt)
     if ((evt.type == sf::Event::KeyPressed) && !keyStates[DOWN])
     {
       keyStates[DOWN] = true;
-      triggerEvent(StrongEventPtr(new InputDownEvent));
+      queueEvent(StrongEventPtr(new InputDownEvent));
     }
     else if ((evt.type == sf::Event::KeyReleased) && keyStates[DOWN])
     {
@@ -296,7 +296,7 @@ void GameEventSystem::dispatchKeyboardEvent(const sf::Event& evt)
     if ((evt.type == sf::Event::KeyPressed) && !keyStates[LEFT])
     {
       keyStates[LEFT] = true;
-      triggerEvent(StrongEventPtr(new InputLeftEvent));
+      queueEvent(StrongEventPtr(new InputLeftEvent));
     }
     else if ((evt.type == sf::Event::KeyReleased) && keyStates[LEFT])
     {
@@ -308,7 +308,7 @@ void GameEventSystem::dispatchKeyboardEvent(const sf::Event& evt)
     if ((evt.type == sf::Event::KeyPressed) && !keyStates[RIGHT])
     {
       keyStates[RIGHT] = true;
-      triggerEvent(StrongEventPtr(new InputRightEvent));
+      queueEvent(StrongEventPtr(new InputRightEvent));
     }
     else if ((evt.type == sf::Event::KeyReleased) && keyStates[RIGHT])
     {

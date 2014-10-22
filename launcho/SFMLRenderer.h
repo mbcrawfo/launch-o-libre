@@ -7,6 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <unordered_map>
+#include <vector>
 #include <string>
 
 class SFMLRenderer
@@ -20,6 +21,8 @@ private:
   sf::RenderTexture renderTexture;
   Timer timer;
   std::unordered_map<EntityID, StrongRenderComponentPtr> renderables;
+  std::vector<StrongRenderComponentPtr> sortedRenderables;
+  bool needSortUpdate;
   EventCallbackID addedCallbackID;
   EventCallbackID removedCallbackID;
 
@@ -33,6 +36,9 @@ public:
   virtual void destroy();
 
 private:
+  void sortRenderables();
+
+  // callbacks
   void entityAddedCallback(StrongEventPtr evt);
   void entityRemovedCallback(StrongEventPtr evt);
 };

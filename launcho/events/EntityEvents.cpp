@@ -10,7 +10,7 @@ EventID EntityAddedEvent::getID() const
   return ID;
 }
 
-const char* EntityAddedEvent::getName() const
+const char* EntityAddedEvent::getNameC() const
 {
   return "EntityAddedEvent";
 }
@@ -25,7 +25,7 @@ EventID EntityRemovedEvent::getID() const
   return ID;
 }
 
-const char* EntityRemovedEvent::getName() const
+const char* EntityRemovedEvent::getNameC() const
 {
   return "EntityRemovedEvent";
 }
@@ -40,7 +40,7 @@ EventID EntityMovedEvent::getID() const
   return ID;
 }
 
-const char* EntityMovedEvent::getName() const
+const char* EntityMovedEvent::getNameC() const
 {
   return "EntityMovedEvent";
 }
@@ -56,7 +56,7 @@ EventID EntityCollisionEvent::getID() const
   return ID;
 }
 
-const char* EntityCollisionEvent::getName() const
+const char* EntityCollisionEvent::getNameC() const
 {
   return "EntityCollisionEvent";
 }

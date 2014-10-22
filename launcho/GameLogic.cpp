@@ -5,7 +5,7 @@
 #include "utility/Log.h"
 #include "Game.h"
 #include "events/InputEvents.h"
-#include "components/TransformComponent.h"
+#include "components/PhysicsComponent.h"
 #include <cassert>
 #include <functional>
 
@@ -117,24 +117,24 @@ WeakEntityPtr GameLogic::getPlayer()
 void GameLogic::inputCallback(StrongEventPtr evt)
 {
   auto player = entities[PLAYER_ID];
-  auto transform = player->getComponent<TransformComponent>().lock();
+  auto physics = player->getComponent<PhysicsComponent>().lock();
 
   switch (evt->getID())
   {
   case InputUpEvent::ID:
-    transform->move(Vector2(0, 10));
+    physics->setAcceleration(Vector2(0.0f, 10.0f));
     break;
 
   case InputDownEvent::ID:
-    transform->move(Vector2(0, -10));
+    physics->setAcceleration(Vector2(0.0f, -10.0f));
     break;
 
   case InputLeftEvent::ID:
-    transform->move(Vector2(-10, 0));
+    physics->setAcceleration(Vector2(-10.0f, 0.0f));
     break;
 
   case InputRightEvent::ID:
-    transform->move(Vector2(10, 0));
+    physics->setAcceleration(Vector2(10.0f, 0.0f));
     break;
 
   default:
@@ -142,7 +142,7 @@ void GameLogic::inputCallback(StrongEventPtr evt)
       TAG,
       "Unknown input event %08x (%s)",
       evt->getID(),
-      evt->getName()
+      evt->getNameC()
       );
   }
 }
