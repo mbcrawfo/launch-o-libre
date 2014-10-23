@@ -45,6 +45,19 @@ const Vector2& PhysicsComponent::getVelocity() const
   return velocity;
 }
 
+void PhysicsComponent::setVelocity(const Vector2& vel)
+{
+  if (physicsEnabled)
+  {
+    velocity = vel;
+  }
+}
+
+void PhysicsComponent::modVelocity(const Vector2& offset)
+{
+  setVelocity(velocity + offset);
+}
+
 const Vector2& PhysicsComponent::getAcceleration() const
 {
   return acceleration;
@@ -56,6 +69,11 @@ void PhysicsComponent::setAcceleration(const Vector2& acc)
   {
     acceleration = acc;
   }  
+}
+
+void PhysicsComponent::modAcceleration(const Vector2& offset)
+{
+  setAcceleration(acceleration + offset);
 }
 
 bool PhysicsComponent::hasGravity() const

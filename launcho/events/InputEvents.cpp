@@ -1,41 +1,16 @@
 #include "InputEvents.h"
 
-EventID InputUpEvent::getID() const
+InputEvent::InputEvent(InputAction action, InputActionState state)
+  : action(action), state(state)
+{
+}
+
+EventID InputEvent::getID() const
 {
   return ID;
 }
 
-const char* InputUpEvent::getNameC() const
+const char* InputEvent::getNameC() const
 {
-  return "InputUpEvent";
-}
-
-EventID InputDownEvent::getID() const
-{
-  return ID;
-}
-
-const char* InputDownEvent::getNameC() const
-{
-  return "InputDownEvent";
-}
-
-EventID InputLeftEvent::getID() const
-{
-  return ID;
-}
-
-const char* InputLeftEvent::getNameC() const
-{
-  return "InputLeftEvent";
-}
-
-EventID InputRightEvent::getID() const
-{
-  return ID;
-}
-
-const char* InputRightEvent::getNameC() const
-{
-  return "InputRightEvent";
+  return "InputEvent";
 }

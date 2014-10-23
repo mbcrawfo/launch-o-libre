@@ -272,11 +272,20 @@ void GameEventSystem::dispatchKeyboardEvent(const sf::Event& evt)
     if ((evt.type == sf::Event::KeyPressed) && !keyStates[UP])
     {
       keyStates[UP] = true;
-      queueEvent(StrongEventPtr(new InputUpEvent));
+      queueEvent(
+        StrongEventPtr(
+          new InputEvent(InputAction::MoveUp, InputActionState::Start)
+          )
+        );
     }
     else if ((evt.type == sf::Event::KeyReleased) && keyStates[UP])
     {
       keyStates[UP] = false;
+      queueEvent(
+        StrongEventPtr(
+          new InputEvent(InputAction::MoveUp, InputActionState::Stop)
+          )
+        );
     }
     break;
 
@@ -284,11 +293,20 @@ void GameEventSystem::dispatchKeyboardEvent(const sf::Event& evt)
     if ((evt.type == sf::Event::KeyPressed) && !keyStates[DOWN])
     {
       keyStates[DOWN] = true;
-      queueEvent(StrongEventPtr(new InputDownEvent));
+      queueEvent(
+        StrongEventPtr(
+          new InputEvent(InputAction::MoveDown, InputActionState::Start)
+          )
+        );
     }
     else if ((evt.type == sf::Event::KeyReleased) && keyStates[DOWN])
     {
       keyStates[DOWN] = false;
+      queueEvent(
+        StrongEventPtr(
+          new InputEvent(InputAction::MoveDown, InputActionState::Stop)
+          )
+        );
     }
     break;
 
@@ -296,11 +314,20 @@ void GameEventSystem::dispatchKeyboardEvent(const sf::Event& evt)
     if ((evt.type == sf::Event::KeyPressed) && !keyStates[LEFT])
     {
       keyStates[LEFT] = true;
-      queueEvent(StrongEventPtr(new InputLeftEvent));
+      queueEvent(
+        StrongEventPtr(
+          new InputEvent(InputAction::MoveLeft, InputActionState::Start)
+          )
+        );
     }
     else if ((evt.type == sf::Event::KeyReleased) && keyStates[LEFT])
     {
       keyStates[LEFT] = false;
+      queueEvent(
+        StrongEventPtr(
+          new InputEvent(InputAction::MoveLeft, InputActionState::Stop)
+          )
+        );
     }
     break;
 
@@ -308,11 +335,20 @@ void GameEventSystem::dispatchKeyboardEvent(const sf::Event& evt)
     if ((evt.type == sf::Event::KeyPressed) && !keyStates[RIGHT])
     {
       keyStates[RIGHT] = true;
-      queueEvent(StrongEventPtr(new InputRightEvent));
+      queueEvent(
+        StrongEventPtr(
+          new InputEvent(InputAction::MoveRight, InputActionState::Start)
+          )
+        );
     }
     else if ((evt.type == sf::Event::KeyReleased) && keyStates[RIGHT])
     {
       keyStates[RIGHT] = false;
+      queueEvent(
+        StrongEventPtr(
+          new InputEvent(InputAction::MoveRight, InputActionState::Stop)
+          )
+        );
     }
     break;
   }

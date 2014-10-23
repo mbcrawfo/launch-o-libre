@@ -19,22 +19,7 @@ void GameLogic::initialize()
   // on 4 different event types
   inputCallbackID = evtMgr->generateNextCallbackID();
   evtMgr->addListener(
-    InputUpEvent::ID,
-    inputCallbackID,
-    std::bind(&GameLogic::inputCallback, this, std::placeholders::_1)
-    );
-  evtMgr->addListener(
-    InputDownEvent::ID,
-    inputCallbackID,
-    std::bind(&GameLogic::inputCallback, this, std::placeholders::_1)
-    );
-  evtMgr->addListener(
-    InputLeftEvent::ID,
-    inputCallbackID,
-    std::bind(&GameLogic::inputCallback, this, std::placeholders::_1)
-    );
-  evtMgr->addListener(
-    InputRightEvent::ID,
+    InputEvent::ID,
     inputCallbackID,
     std::bind(&GameLogic::inputCallback, this, std::placeholders::_1)
     );
@@ -58,10 +43,7 @@ void GameLogic::destroy()
 
   // detach callbacks
   auto evtMgr = Game::getInstance().getEventSystem();
-  evtMgr->removeListener(InputUpEvent::ID, inputCallbackID);
-  evtMgr->removeListener(InputDownEvent::ID, inputCallbackID);
-  evtMgr->removeListener(InputLeftEvent::ID, inputCallbackID);
-  evtMgr->removeListener(InputRightEvent::ID, inputCallbackID);
+  evtMgr->removeListener(InputEvent::ID, inputCallbackID);
 }
 
 void GameLogic::addEntity(StrongEntityPtr entity)
@@ -116,33 +98,67 @@ WeakEntityPtr GameLogic::getPlayer()
 
 void GameLogic::inputCallback(StrongEventPtr evt)
 {
-  auto player = entities[PLAYER_ID];
-  auto physics = player->getComponent<PhysicsComponent>().lock();
+  auto ie = Event::cast<InputEvent>(evt);
 
-  switch (evt->getID())
+  if (ie == nullptr)
   {
-  case InputUpEvent::ID:
-    physics->setAcceleration(Vector2(0.0f, 10.0f));
-    break;
-
-  case InputDownEvent::ID:
-    physics->setAcceleration(Vector2(0.0f, -10.0f));
-    break;
-
-  case InputLeftEvent::ID:
-    physics->setAcceleration(Vector2(-10.0f, 0.0f));
-    break;
-
-  case InputRightEvent::ID:
-    physics->setAcceleration(Vector2(10.0f, 0.0f));
-    break;
-
-  default:
     Log::warning(
       TAG,
       "Unknown input event %08x (%s)",
       evt->getID(),
       evt->getNameC()
       );
+  }
+  else
+  {
+    auto player = entities[PLAYER_ID];
+    auto physics = player->getComponent<PhysicsComponent>().lock();
+
+    switch (ie->action)
+    {
+    case InputAction::MoveUp:
+      if (ie->state == InputActionState::Start)
+      {
+        physics->modAcceleration(Vector2::UNIT_Y * 20.0f);
+      }
+      else if (ie->state == InputActionState::Stop)
+      {
+        physics->modAcceleration(Vector2::UNIT_Y * -20.0f);
+      }
+      break;
+
+    case InputAction::MoveDown:
+      if (ie->state == InputActionState::Start)
+      {
+        physics->modAcceleration(Vector2::UNIT_Y * -20.0f);
+      }
+      else if (ie->state == InputActionState::Stop)
+      {
+        physics->modAcceleration(Vector2::UNIT_Y * 20.0f);
+      }
+      break;
+
+    case InputAction::MoveLeft:
+      if (ie->state == InputActionState::Start)
+      {
+        physics->modAcceleration(Vector2::UNIT_X * -20.0f);
+      }
+      else if (ie->state == InputActionState::Stop)
+      {
+        physics->modAcceleration(Vector2::UNIT_X * 20.0f);
+      }
+      break;
+
+    case InputAction::MoveRight:
+      if (ie->state == InputActionState::Start)
+      {
+        physics->modAcceleration(Vector2::UNIT_X * 20.0f);
+      }
+      else if (ie->state == InputActionState::Stop)
+      {
+        physics->modAcceleration(Vector2::UNIT_X * -20.0f);
+      }
+      break;
+    }
   }
 }

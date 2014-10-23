@@ -3,11 +3,13 @@
 #include "GameOptions.h"
 #include "Game.h"
 #include "Entity.h"
+#include "components/PhysicsComponent.h"
 #include "events/EntityEvents.h"
 #include "utility/Log.h"
 #include <string>
 #include <cassert>
 #include <functional>
+#include <cstdio>
 
 const std::string SFMLRenderer::TAG = "SFMLRenderer";
 
@@ -19,6 +21,7 @@ SFMLRenderer::SFMLRenderer(std::shared_ptr<sf::RenderWindow> _window)
   renderables(),
   sortedRenderables(),
   needSortUpdate(false),
+  font(),
   addedCallbackID(0),
   removedCallbackID(0)
 {
@@ -49,6 +52,12 @@ void SFMLRenderer::initialize()
     Log::error(TAG, "Unable to create render texture");
   }
   renderTexture.setView(view);
+
+  // load font for UI
+  if (!font.loadFromFile("data/fonts/arial.ttf"))
+  {
+    Log::error(TAG, "Could not load arial font");
+  }
 
   // event registration
   auto evtMgr = Game::getInstance().getEventSystem();
@@ -82,6 +91,7 @@ void SFMLRenderer::update(const float deltaMs)
     rc->draw(renderTexture);
   }
 
+  drawUI();
   renderTexture.display();
   window->draw(sf::Sprite(renderTexture.getTexture()));
 
@@ -120,6 +130,23 @@ void SFMLRenderer::sortRenderables()
       );
     needSortUpdate = false;
   }
+}
+
+void SFMLRenderer::drawUI()
+{
+  auto player = Game::getInstance().getLogicSystem()->getPlayer().lock();
+  assert(player != nullptr);
+  auto physics = player->getComponent<PhysicsComponent>().lock();
+  assert(physics != nullptr);
+  Vector2 vel = physics->getVelocity();
+
+  char buffer[32];
+  sprintf_s(buffer, 32, "Velocity <%01.2f, %01.2f>", vel.x, vel.y);
+  sf::Text text(buffer, font, 18);
+  text.setPosition(10.0f, 10.0f);
+  text.setColor(sf::Color::Black);
+
+  renderTexture.draw(text);
 }
 
 void SFMLRenderer::entityAddedCallback(StrongEventPtr evt)

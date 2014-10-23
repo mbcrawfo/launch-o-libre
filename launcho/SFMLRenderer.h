@@ -20,9 +20,13 @@ private:
   sf::View view;
   sf::RenderTexture renderTexture;
   Timer timer;
+  
   std::unordered_map<EntityID, StrongRenderComponentPtr> renderables;
   std::vector<StrongRenderComponentPtr> sortedRenderables;
   bool needSortUpdate;
+
+  sf::Font font;
+
   EventCallbackID addedCallbackID;
   EventCallbackID removedCallbackID;
 
@@ -37,6 +41,7 @@ public:
 
 private:
   void sortRenderables();
+  void drawUI();
 
   // callbacks
   void entityAddedCallback(StrongEventPtr evt);

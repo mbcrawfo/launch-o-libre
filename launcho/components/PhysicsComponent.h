@@ -26,11 +26,14 @@ public:
   void update(const float deltaMs) override;
 
   const Vector2& getVelocity() const;
+  void setVelocity(const Vector2& vel);
+  void modVelocity(const Vector2& offset);
 
   // at this point acceleration is constant, does not change until you 
   // modify it
   const Vector2& getAcceleration() const;
   void setAcceleration(const Vector2& acc);
+  void modAcceleration(const Vector2& offset);
 
   // objects without gravity float around like 0g
   bool hasGravity() const;
