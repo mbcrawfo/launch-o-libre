@@ -3,6 +3,7 @@
 #include "SFMLRenderer.h"
 #include "GameLogic.h"
 #include "GameEventSystem.h"
+#include "Box2DPhysics.h"
 #include "utility/Log.h"
 #include <thread>
 #include <iostream>
@@ -18,7 +19,7 @@ Game::Game()
     frameCount(0),
     window(new sf::RenderWindow),
     logic(new GameLogic),    
-    physics(new NullPhysicsSystem),
+    physics(new Box2DPhysics),
     render(new SFMLRenderer(window)),
     eventManager(new GameEventSystem(window))
 {
@@ -53,7 +54,7 @@ ILogicSystem* Game::getLogicSystem()
   return logic.get();
 }
 
-IPhysicsSystem* Game::getPhysicsSystem()
+Box2DPhysics* Game::getPhysicsSystem()
 {
   return physics.get();
 }
@@ -89,12 +90,16 @@ void Game::initialize()
 void Game::mainLoop()
 {
   Log::verbose(TAG, "main loop start");
-  Timer timer;  
+  Timer frameTime;
+  Timer physicsTime;
+  float logicDelta = 0.0f;
+  const float logicTick = 1000.0f / 30.0f;
+  const float maxEventMs = 5.0f;
 
   while (window->isOpen())
   {
-    lastFrameTime = timer.elapsedMilliF();
-    timer.start();
+    lastFrameTime = frameTime.elapsedMilliF();
+    frameTime.start();
 
     // frame stats    
     gameTime += lastFrameTime / 1000.0f;
@@ -103,14 +108,20 @@ void Game::mainLoop()
 
     Log::verbose(TAG, "Start frame %u", frameCount);
 
-    logic->update(lastFrameTime);
-    physics->update(lastFrameTime);
     render->update(lastFrameTime);
-    float budget = std::max(MAX_FRAME_TIME - timer.elapsedMilliF(), 0.0f);
-    eventManager->update(budget);
+    physics->update(physicsTime.elapsedMilliF());
+    physicsTime.start();
+
+    logicDelta += frameTime.elapsedMilliF();
+    while (logicDelta >= logicTick)
+    {
+      logicDelta -= logicTick;
+      logic->update(logicTick);
+      eventManager->update(maxEventMs);
+    }    
     
     // prevent using 100% cpu
-    if (timer.elapsedMilliF() < MAX_FRAME_TIME)
+    if (frameTime.elapsedMilliF() < MAX_FRAME_TIME)
     {
       std::this_thread::sleep_for(std::chrono::microseconds(1));
     }

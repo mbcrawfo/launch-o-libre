@@ -94,6 +94,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Box2DPhysics.cpp" />
     <ClCompile Include="components\Component.cpp" />
     <ClCompile Include="components\PhysicsComponent.cpp" />
     <ClCompile Include="components\RectangleRenderComponent.cpp" />
@@ -115,6 +116,7 @@
     <ClCompile Include="utility\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Box2DPhysics.h" />
     <ClInclude Include="components\Component.h" />
     <ClInclude Include="components\PhysicsComponent.h" />
     <ClInclude Include="components\RectangleRenderComponent.h" />
@@ -129,7 +131,6 @@
     <ClInclude Include="GameOptions.h" />
     <ClInclude Include="IEventSystem.h" />
     <ClInclude Include="ILogicSystem.h" />
-    <ClInclude Include="IPhysicsSystem.h" />
     <ClInclude Include="IRenderSystem.h" />
     <ClInclude Include="math\AABB2.h" />
     <ClInclude Include="math\fp_compare.h" />

@@ -44,6 +44,7 @@
     <ClCompile Include="components\PhysicsComponent.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="Box2DPhysics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">
@@ -74,7 +75,6 @@
     </ClInclude>
     <ClInclude Include="IEventSystem.h" />
     <ClInclude Include="ILogicSystem.h" />
-    <ClInclude Include="IPhysicsSystem.h" />
     <ClInclude Include="IRenderSystem.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameOptions.h" />
@@ -117,5 +117,6 @@
     <ClInclude Include="components\PhysicsComponent.h">
       <Filter>components</Filter>
     </ClInclude>
+    <ClInclude Include="Box2DPhysics.h" />
   </ItemGroup>
 </Project>

@@ -2,7 +2,7 @@
 
 #include "ILogicSystem.h"
 #include "IRenderSystem.h"
-#include "IPhysicsSystem.h"
+#include "Box2DPhysics.h"
 #include "IEventSystem.h"
 #include "utility/Singleton.h"
 #include <SFML/Graphics.hpp>
@@ -26,7 +26,7 @@ class Game
   uint32_t frameCount;
   std::shared_ptr<sf::RenderWindow> window;
   std::shared_ptr<ILogicSystem> logic;  
-  std::shared_ptr<IPhysicsSystem> physics;
+  std::shared_ptr<Box2DPhysics> physics;
   std::shared_ptr<IRenderSystem> render;
   std::shared_ptr<IEventSystem> eventManager;
 
@@ -48,7 +48,7 @@ public:
   // these should always return a valid pointer
   sf::RenderWindow* getWindow();
   ILogicSystem* getLogicSystem();
-  IPhysicsSystem* getPhysicsSystem();
+  Box2DPhysics* getPhysicsSystem();
   IRenderSystem* getRenderSystem();
   IEventSystem* getEventSystem();
 
