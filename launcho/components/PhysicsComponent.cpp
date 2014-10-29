@@ -2,16 +2,15 @@
 #include "TransformComponent.h"
 #include "Entity.h"
 #include "utility/Log.h"
+#include "Game.h"
+#include "Box2DPhysics.h"
 
 static const Vector2 GRAVITY(0.0f, -9.80665f);
 
-PhysicsComponent::PhysicsComponent(StrongEntityPtr parent, 
-                                   const Vector2& initialVel)
+PhysicsComponent::PhysicsComponent(StrongEntityPtr parent, Type type)
 : Component(parent),
-  velocity(initialVel),
-  acceleration(Vector2::ZERO),
-  gravityEnabled(true),
-  physicsEnabled(true)
+  body(nullptr),
+  type(type)
 {
 }
 
@@ -20,83 +19,37 @@ ComponentID PhysicsComponent::getID() const
   return ID;
 }
 
+bool PhysicsComponent::initialize()
+{
+  auto world = Game::getInstance().getPhysicsSystem()->getWorld().lock();
+  auto tc = parent->getComponent<TransformComponent>().lock();
+
+  b2BodyDef bodyDef;  
+  bodyDef.type = type == Type::Static ? b2_staticBody : b2_dynamicBody;
+  bodyDef.position.Set(tc->getPosition().x, tc->getPosition().y);
+  bodyDef.fixedRotation = true;
+  bodyDef.userData = reinterpret_cast<void*>(parent->getID());
+  body = world->CreateBody(&bodyDef);
+
+  b2PolygonShape shape;
+  shape.SetAsBox(tc->getBounds().halfSize.x, tc->getBounds().halfSize.y);
+  b2FixtureDef fixture;
+  fixture.shape = &shape;
+  fixture.density = 100.0f;
+  fixture.friction = 1.0f;
+  fixture.restitution = 0.75f;
+  body->CreateFixture(&fixture);
+
+  return true;
+}
+
 void PhysicsComponent::update(const float deltaMs)
 {
-  if (isStatic() || deltaMs <= 0.0f)
-  {
-    return;
-  }
-
-  float deltaS = deltaMs / 1000.0f;
-  Vector2 deltaV = acceleration * deltaS;
-  if (gravityEnabled)
-  {
-    deltaV += GRAVITY * deltaS;
-  }
-  velocity += deltaV;
-
-  auto tc = parent->getComponent<TransformComponent>().lock();
-  Vector2 displacement = velocity * deltaS;
-  tc->move(displacement);
 }
 
-const Vector2& PhysicsComponent::getVelocity() const
+void PhysicsComponent::destroy()
 {
-  return velocity;
-}
-
-void PhysicsComponent::setVelocity(const Vector2& vel)
-{
-  if (physicsEnabled)
-  {
-    velocity = vel;
-  }
-}
-
-void PhysicsComponent::modVelocity(const Vector2& offset)
-{
-  setVelocity(velocity + offset);
-}
-
-const Vector2& PhysicsComponent::getAcceleration() const
-{
-  return acceleration;
-}
-
-void PhysicsComponent::setAcceleration(const Vector2& acc)
-{
-  if (physicsEnabled)
-  {
-    acceleration = acc;
-  }  
-}
-
-void PhysicsComponent::modAcceleration(const Vector2& offset)
-{
-  setAcceleration(acceleration + offset);
-}
-
-bool PhysicsComponent::hasGravity() const
-{
-  return gravityEnabled;
-}
-
-void PhysicsComponent::enableGravity(bool state)
-{
-  gravityEnabled = state;
-}
-
-bool PhysicsComponent::isStatic() const
-{
-  return !physicsEnabled;
-}
-
-void PhysicsComponent::enablePhysics(bool state)
-{
-  physicsEnabled = state;
-  if (!physicsEnabled)
-  {
-    velocity = Vector2::ZERO;
-    acceleration = Vector2::ZERO;
-  }
+  auto world = Game::getInstance().getPhysicsSystem()->getWorld().lock();
+  world->DestroyBody(body);
+  body = nullptr;
 }

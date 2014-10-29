@@ -114,51 +114,51 @@ void GameLogic::inputCallback(StrongEventPtr evt)
     auto player = entities[PLAYER_ID];
     auto physics = player->getComponent<PhysicsComponent>().lock();
 
-    switch (ie->action)
-    {
-    case InputAction::MoveUp:
-      if (ie->state == InputActionState::Start)
-      {
-        physics->modAcceleration(Vector2::UNIT_Y * 20.0f);
-      }
-      else if (ie->state == InputActionState::Stop)
-      {
-        physics->modAcceleration(Vector2::UNIT_Y * -20.0f);
-      }
-      break;
-
-    case InputAction::MoveDown:
-      if (ie->state == InputActionState::Start)
-      {
-        physics->modAcceleration(Vector2::UNIT_Y * -20.0f);
-      }
-      else if (ie->state == InputActionState::Stop)
-      {
-        physics->modAcceleration(Vector2::UNIT_Y * 20.0f);
-      }
-      break;
-
-    case InputAction::MoveLeft:
-      if (ie->state == InputActionState::Start)
-      {
-        physics->modAcceleration(Vector2::UNIT_X * -20.0f);
-      }
-      else if (ie->state == InputActionState::Stop)
-      {
-        physics->modAcceleration(Vector2::UNIT_X * 20.0f);
-      }
-      break;
-
-    case InputAction::MoveRight:
-      if (ie->state == InputActionState::Start)
-      {
-        physics->modAcceleration(Vector2::UNIT_X * 20.0f);
-      }
-      else if (ie->state == InputActionState::Stop)
-      {
-        physics->modAcceleration(Vector2::UNIT_X * -20.0f);
-      }
-      break;
-    }
+//     switch (ie->action)
+//     {
+//     case InputAction::MoveUp:
+//       if (ie->state == InputActionState::Start)
+//       {
+//         physics->modAcceleration(Vector2::UNIT_Y * 20.0f);
+//       }
+//       else if (ie->state == InputActionState::Stop)
+//       {
+//         physics->modAcceleration(Vector2::UNIT_Y * -20.0f);
+//       }
+//       break;
+// 
+//     case InputAction::MoveDown:
+//       if (ie->state == InputActionState::Start)
+//       {
+//         physics->modAcceleration(Vector2::UNIT_Y * -20.0f);
+//       }
+//       else if (ie->state == InputActionState::Stop)
+//       {
+//         physics->modAcceleration(Vector2::UNIT_Y * 20.0f);
+//       }
+//       break;
+// 
+//     case InputAction::MoveLeft:
+//       if (ie->state == InputActionState::Start)
+//       {
+//         physics->modAcceleration(Vector2::UNIT_X * -20.0f);
+//       }
+//       else if (ie->state == InputActionState::Stop)
+//       {
+//         physics->modAcceleration(Vector2::UNIT_X * 20.0f);
+//       }
+//       break;
+// 
+//     case InputAction::MoveRight:
+//       if (ie->state == InputActionState::Start)
+//       {
+//         physics->modAcceleration(Vector2::UNIT_X * 20.0f);
+//       }
+//       else if (ie->state == InputActionState::Stop)
+//       {
+//         physics->modAcceleration(Vector2::UNIT_X * -20.0f);
+//       }
+//       break;
+//     }
   }
 }

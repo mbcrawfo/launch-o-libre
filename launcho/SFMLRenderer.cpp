@@ -134,19 +134,19 @@ void SFMLRenderer::sortRenderables()
 
 void SFMLRenderer::drawUI()
 {
-  auto player = Game::getInstance().getLogicSystem()->getPlayer().lock();
-  assert(player != nullptr);
-  auto physics = player->getComponent<PhysicsComponent>().lock();
-  assert(physics != nullptr);
-  Vector2 vel = physics->getVelocity();
-
-  char buffer[32];
-  sprintf_s(buffer, 32, "Velocity <%01.2f, %01.2f>", vel.x, vel.y);
-  sf::Text text(buffer, font, 18);
-  text.setPosition(10.0f, 10.0f);
-  text.setColor(sf::Color::Black);
-
-  renderTexture.draw(text);
+//   auto player = Game::getInstance().getLogicSystem()->getPlayer().lock();
+//   assert(player != nullptr);
+//   auto physics = player->getComponent<PhysicsComponent>().lock();
+//   assert(physics != nullptr);
+//   Vector2 vel = physics->getVelocity();
+// 
+//   char buffer[32];
+//   sprintf_s(buffer, 32, "Velocity <%01.2f, %01.2f>", vel.x, vel.y);
+//   sf::Text text(buffer, font, 18);
+//   text.setPosition(10.0f, 10.0f);
+//   text.setColor(sf::Color::Black);
+// 
+//   renderTexture.draw(text);
 }
 
 void SFMLRenderer::entityAddedCallback(StrongEventPtr evt)

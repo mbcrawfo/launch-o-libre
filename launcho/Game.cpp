@@ -159,8 +159,9 @@ void Game::createEntities()
   rect->setLayer(RenderLayer::Player);
   rect->setColor(sf::Color::Blue);
   ent->addComponent(rect);
-  StrongPhysicsComponentPtr phys(new PhysicsComponent(ent));
-  phys->enableGravity(false);
+  StrongPhysicsComponentPtr phys(
+    new PhysicsComponent(ent, PhysicsComponent::Type::Dynamic)
+    );
   ent->addComponent(phys);
   ent->initialize();
   logic->addEntity(ent);
@@ -174,8 +175,9 @@ void Game::createEntities()
   rect->setLayer(RenderLayer::Background);
   rect->setColor(sf::Color::Green);
   ent->addComponent(rect);
-  phys = StrongPhysicsComponentPtr(new PhysicsComponent(ent));
-  phys->enablePhysics(false);
+  phys = StrongPhysicsComponentPtr(
+    new PhysicsComponent(ent, PhysicsComponent::Type::Static)
+    );
   ent->addComponent(phys);
   ent->initialize();
   logic->addEntity(ent);

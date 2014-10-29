@@ -68,12 +68,12 @@ float AABB2::perimeter() const
   return (width() + height()) * 2.0f;
 }
 
-Vector2 AABB2::min() const
+Vector2 AABB2::lowerLeft() const
 {
   return center - halfSize;
 }
 
-Vector2 AABB2::max() const
+Vector2 AABB2::upperRight() const
 {
   return center + halfSize;
 }

@@ -41,10 +41,10 @@ public:
   /**
    * Returns the lower left corner of the box.
    */
-  Vector2 min() const;
+  Vector2 lowerLeft() const;
 
   /** 
    * Returns the upper right corner of the box.
    */
-  Vector2 max() const;
+  Vector2 upperRight() const;
 };
