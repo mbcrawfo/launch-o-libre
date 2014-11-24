@@ -7,7 +7,8 @@ enum class InputAction
   MoveUp,
   MoveDown,
   MoveLeft,
-  MoveRight
+  MoveRight,
+  Fire
 };
 
 enum class InputActionState

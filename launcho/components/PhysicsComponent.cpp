@@ -4,6 +4,7 @@
 #include "utility/Log.h"
 #include "Game.h"
 #include "Box2DPhysics.h"
+#include "utility/conversions.h"
 
 static const Vector2 GRAVITY(0.0f, -9.80665f);
 
@@ -35,9 +36,9 @@ bool PhysicsComponent::initialize()
   shape.SetAsBox(tc->getBounds().halfSize.x, tc->getBounds().halfSize.y);
   b2FixtureDef fixture;
   fixture.shape = &shape;
-  fixture.density = 100.0f;
-  fixture.friction = 1.0f;
-  fixture.restitution = 0.75f;
+  fixture.density = 0.0001f;
+  fixture.friction = 0.25f;
+  fixture.restitution = 0.5f;
   body->CreateFixture(&fixture);
 
   return true;
@@ -52,4 +53,10 @@ void PhysicsComponent::destroy()
   auto world = Game::getInstance().getPhysicsSystem()->getWorld().lock();
   world->DestroyBody(body);
   body = nullptr;
+}
+
+void PhysicsComponent::applyImpulse(const Vector2& impulse)
+{
+  b2Vec2 temp(impulse.x, impulse.y);
+  body->ApplyLinearImpulse(temp, body->GetWorldCenter(), true);
 }

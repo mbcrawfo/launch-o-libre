@@ -152,8 +152,8 @@ void Game::createEntities()
 {
   StrongEntityPtr ent(new Entity(1));
   StrongTransformComponentPtr trans(new TransformComponent(ent));
-  trans->setPosition(Vector2(400, 300));
-  trans->setSize(50, 50);
+  trans->setPosition(Vector2(30, 70));
+  trans->setSize(50, 100);
   ent->addComponent(trans);
   StrongRectangleRenderComponentPtr rect(new RectangleRenderComponent(ent));
   rect->setLayer(RenderLayer::Player);
@@ -166,10 +166,62 @@ void Game::createEntities()
   ent->initialize();
   logic->addEntity(ent);
 
+  // ground
   ent = StrongEntityPtr(new Entity(2));
   trans = StrongTransformComponentPtr(new TransformComponent(ent));
   trans->setPosition(Vector2(400, 10));
   trans->setSize(800, 20);
+  ent->addComponent(trans);
+  rect = StrongRectangleRenderComponentPtr(new RectangleRenderComponent(ent));
+  rect->setLayer(RenderLayer::Background);
+  rect->setColor(sf::Color::Green);
+  ent->addComponent(rect);
+  phys = StrongPhysicsComponentPtr(
+    new PhysicsComponent(ent, PhysicsComponent::Type::Static)
+    );
+  ent->addComponent(phys);
+  ent->initialize();
+  logic->addEntity(ent);
+
+  // left wall
+  ent = StrongEntityPtr(new Entity(3));
+  trans = StrongTransformComponentPtr(new TransformComponent(ent));
+  trans->setPosition(Vector2(-1, 300));
+  trans->setSize(2, 600);
+  ent->addComponent(trans);
+  rect = StrongRectangleRenderComponentPtr(new RectangleRenderComponent(ent));
+  rect->setLayer(RenderLayer::Background);
+  rect->setColor(sf::Color::Green);
+  ent->addComponent(rect);
+  phys = StrongPhysicsComponentPtr(
+    new PhysicsComponent(ent, PhysicsComponent::Type::Static)
+    );
+  ent->addComponent(phys);
+  ent->initialize();
+  logic->addEntity(ent);
+
+  // right wall
+  ent = StrongEntityPtr(new Entity(4));
+  trans = StrongTransformComponentPtr(new TransformComponent(ent));
+  trans->setPosition(Vector2(801, 300));
+  trans->setSize(2, 600);
+  ent->addComponent(trans);
+  rect = StrongRectangleRenderComponentPtr(new RectangleRenderComponent(ent));
+  rect->setLayer(RenderLayer::Background);
+  rect->setColor(sf::Color::Green);
+  ent->addComponent(rect);
+  phys = StrongPhysicsComponentPtr(
+    new PhysicsComponent(ent, PhysicsComponent::Type::Static)
+    );
+  ent->addComponent(phys);
+  ent->initialize();
+  logic->addEntity(ent);
+
+  // ceiling
+  ent = StrongEntityPtr(new Entity(5));
+  trans = StrongTransformComponentPtr(new TransformComponent(ent));
+  trans->setPosition(Vector2(400, 601));
+  trans->setSize(800, 2);
   ent->addComponent(trans);
   rect = StrongRectangleRenderComponentPtr(new RectangleRenderComponent(ent));
   rect->setLayer(RenderLayer::Background);

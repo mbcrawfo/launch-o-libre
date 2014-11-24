@@ -258,10 +258,11 @@ void GameEventSystem::dispatchKeyboardEvent(const sf::Event& evt)
     UP = 0,
     DOWN = 1,
     LEFT = 2,
-    RIGHT = 3
+    RIGHT = 3,
+    FIRE = 4
   };
   // tracks keys that are currently down
-  static bool keyStates[4] = { false };
+  static bool keyStates[5] = { false };
 
   assert(evt.type == sf::Event::KeyPressed || 
          evt.type == sf::Event::KeyReleased);
@@ -349,6 +350,22 @@ void GameEventSystem::dispatchKeyboardEvent(const sf::Event& evt)
           new InputEvent(InputAction::MoveRight, InputActionState::Stop)
           )
         );
+    }
+    break;
+
+  case sf::Keyboard::Space:
+    if ((evt.type == sf::Event::KeyPressed) && !keyStates[FIRE])
+    {
+      keyStates[FIRE] = true;
+      queueEvent(
+        StrongEventPtr(
+          new InputEvent(InputAction::Fire)
+          )
+        );
+    }
+    else if ((evt.type == sf::Event::KeyReleased) && keyStates[FIRE])
+    {
+      keyStates[FIRE] = false;
     }
     break;
   }

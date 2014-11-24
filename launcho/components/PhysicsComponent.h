@@ -2,6 +2,7 @@
 
 #include "Component.h"
 #include "Box2D.h"
+#include "math/Vector2.h"
 
 class PhysicsComponent;
 using StrongPhysicsComponentPtr = std::shared_ptr<PhysicsComponent>;
@@ -30,4 +31,6 @@ public:
   bool initialize() override;
   void update(const float deltaMs) override;
   void destroy() override;
+
+  void applyImpulse(const Vector2& impulse);
 };

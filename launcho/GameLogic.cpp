@@ -114,51 +114,27 @@ void GameLogic::inputCallback(StrongEventPtr evt)
     auto player = entities[PLAYER_ID];
     auto physics = player->getComponent<PhysicsComponent>().lock();
 
-//     switch (ie->action)
-//     {
-//     case InputAction::MoveUp:
-//       if (ie->state == InputActionState::Start)
-//       {
-//         physics->modAcceleration(Vector2::UNIT_Y * 20.0f);
-//       }
-//       else if (ie->state == InputActionState::Stop)
-//       {
-//         physics->modAcceleration(Vector2::UNIT_Y * -20.0f);
-//       }
-//       break;
-// 
-//     case InputAction::MoveDown:
-//       if (ie->state == InputActionState::Start)
-//       {
-//         physics->modAcceleration(Vector2::UNIT_Y * -20.0f);
-//       }
-//       else if (ie->state == InputActionState::Stop)
-//       {
-//         physics->modAcceleration(Vector2::UNIT_Y * 20.0f);
-//       }
-//       break;
-// 
-//     case InputAction::MoveLeft:
-//       if (ie->state == InputActionState::Start)
-//       {
-//         physics->modAcceleration(Vector2::UNIT_X * -20.0f);
-//       }
-//       else if (ie->state == InputActionState::Stop)
-//       {
-//         physics->modAcceleration(Vector2::UNIT_X * 20.0f);
-//       }
-//       break;
-// 
-//     case InputAction::MoveRight:
-//       if (ie->state == InputActionState::Start)
-//       {
-//         physics->modAcceleration(Vector2::UNIT_X * 20.0f);
-//       }
-//       else if (ie->state == InputActionState::Stop)
-//       {
-//         physics->modAcceleration(Vector2::UNIT_X * -20.0f);
-//       }
-//       break;
-//     }
+    switch (ie->action)
+    {
+    case InputAction::MoveUp:
+      physics->applyImpulse(Vector2(0, 1000));
+      break;
+
+    case InputAction::MoveDown:
+      physics->applyImpulse(Vector2(0, -1000));
+      break;
+
+    case InputAction::MoveLeft:
+      physics->applyImpulse(Vector2(-1000, 0));
+      break;
+
+    case InputAction::MoveRight:
+      physics->applyImpulse(Vector2(1000, 0));
+      break;
+
+    case InputAction::Fire:
+      physics->applyImpulse(Vector2(10000000, 100000000));
+      break;
+    }    
   }
 }
